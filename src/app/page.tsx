@@ -7,6 +7,9 @@ import { client } from '@/lib/sanity/client';
 import { getHomepageConfig } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/image';
 
+// Revalidate every 60 seconds so CMS changes appear quickly
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: 'Artisans On Main — Curated Art Gallery in Weaverville, NC',
   description:
