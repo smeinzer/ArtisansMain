@@ -75,7 +75,7 @@ export default function Footer() {
             <address className="not-italic text-sm text-warm-gray leading-relaxed space-y-2.5">
               <p>18 N Main St</p>
               <p>Weaverville, NC 28787</p>
-              <p>(828) 555-0192</p>
+              <p>(828) 658-9617</p>
             </address>
             <div className="mt-4 text-sm text-warm-gray leading-relaxed space-y-1">
               <p>Mon: Closed</p>

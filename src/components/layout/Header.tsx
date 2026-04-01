@@ -3,9 +3,16 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
-import Navigation from './Navigation';
 import MobileMenu from './MobileMenu';
 import CartSlideOut from './CartSlideOut';
+
+const desktopNavLinks = [
+  { href: '/shop', label: 'Shop' },
+  { href: '/artists', label: 'Artists' },
+  { href: '/about', label: 'About' },
+  { href: '/visit', label: 'Visit' },
+  { href: '/contact', label: 'Contact' },
+] as const;
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,9 +32,17 @@ export default function Header() {
             </Link>
 
             {/* Desktop navigation */}
-            <div className="hidden md:block">
-              <Navigation />
-            </div>
+            <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+              {desktopNavLinks.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="text-sm font-medium tracking-wide text-charcoal hover:text-terracotta transition-colors"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
 
             {/* Right section: cart + mobile hamburger */}
             <div className="flex items-center gap-4">

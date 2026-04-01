@@ -27,7 +27,7 @@ export default function AnimateOnScroll({
           observer.unobserve(element);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }
     );
 
     observer.observe(element);
@@ -40,8 +40,8 @@ export default function AnimateOnScroll({
       className={className}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-        transition: `opacity 0.6s ease-out ${delay}ms, transform 0.6s ease-out ${delay}ms`,
+        transform: isVisible ? 'translateY(0)' : 'translateY(12px)',
+        transition: `opacity 0.4s ease-out ${delay}ms, transform 0.4s ease-out ${delay}ms`,
       }}
     >
       {children}

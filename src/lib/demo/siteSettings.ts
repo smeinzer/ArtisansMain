@@ -22,7 +22,7 @@ export interface DemoSiteSettings {
 export const demoSiteSettings: DemoSiteSettings = {
   businessName: "Artisans On Main",
   tagline: "Handcrafted art from the heart of the Blue Ridge",
-  phone: "(828) 555-0192",
+  phone: "(828) 658-9617",
   email: "hello@artisansonmain.com",
   address: "18 N Main St, Weaverville, NC 28787",
   hours: [

@@ -54,21 +54,12 @@ export const metadata: Metadata = {
     siteName: 'Artisans On Main',
     locale: 'en_US',
     type: 'website',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Artisans On Main — Curated Art Gallery in Weaverville, NC',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Artisans On Main — Curated Art Gallery in Weaverville, NC',
     description:
       'Artisans On Main is a curated art consignment gallery in Weaverville, NC featuring handcrafted paintings, ceramics, jewelry, and more from local Appalachian artists.',
-    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -97,7 +88,7 @@ const jsonLd = {
     postalCode: '28787',
     addressCountry: 'US',
   },
-  telephone: '(828) 555-0192',
+  telephone: '(828) 658-9617',
   url: 'https://artisans-on-main.vercel.app',
   openingHoursSpecification: [
     {
