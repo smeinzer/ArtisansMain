@@ -24,6 +24,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
               i === selectedIndex ? 'opacity-100' : 'opacity-0'
             }`}
             sizes="(max-width: 768px) 100vw, 50vw"
+            quality={90}
             priority={i === 0}
           />
         ))}
@@ -35,6 +36,8 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
             <button
               key={src}
               onClick={() => setSelectedIndex(i)}
+              aria-label={`View image ${i + 1} of ${images.length}`}
+              aria-current={i === selectedIndex ? 'true' : undefined}
               className={`relative shrink-0 w-16 h-20 overflow-hidden bg-cream-dark border-2 transition-colors duration-200 ${
                 i === selectedIndex ? 'border-terracotta' : 'border-transparent'
               }`}

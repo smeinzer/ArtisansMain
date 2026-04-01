@@ -1,8 +1,9 @@
+import type { Metadata } from 'next';
 import { demoSiteSettings } from '@/lib/demo';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 
-export const metadata = {
-  title: 'Visit Us — Artisans On Main',
+export const metadata: Metadata = {
+  title: 'Visit Us',
   description:
     'Plan your visit to Artisans On Main at 18 N Main St, Weaverville, NC. Open Tuesday through Sunday.',
 };

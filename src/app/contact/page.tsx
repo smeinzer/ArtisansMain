@@ -52,7 +52,7 @@ export default function ContactPage() {
         {/* Contact form */}
         <AnimateOnScroll>
           {submitted ? (
-            <div className="py-16 text-center">
+            <div className="py-16 text-center" role="status" aria-live="polite">
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal mb-3">
                 Message Sent
               </h2>
@@ -82,6 +82,7 @@ export default function ContactPage() {
                     id="name"
                     name="name"
                     required
+                    aria-required="true"
                     className="w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal placeholder:text-warm-gray-light focus:outline-none focus:border-terracotta transition-colors"
                     placeholder="Your name"
                   />
@@ -98,6 +99,7 @@ export default function ContactPage() {
                     id="email"
                     name="email"
                     required
+                    aria-required="true"
                     className="w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal placeholder:text-warm-gray-light focus:outline-none focus:border-terracotta transition-colors"
                     placeholder="your@email.com"
                   />
@@ -115,6 +117,7 @@ export default function ContactPage() {
                   id="subject"
                   name="subject"
                   required
+                  aria-required="true"
                   className="w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors"
                   defaultValue=""
                 >
@@ -142,6 +145,7 @@ export default function ContactPage() {
                   id="message"
                   name="message"
                   required
+                  aria-required="true"
                   rows={6}
                   className="w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal placeholder:text-warm-gray-light focus:outline-none focus:border-terracotta transition-colors resize-y"
                   placeholder="How can we help?"

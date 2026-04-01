@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import Navigation from './Navigation';
 
 interface MobileMenuProps {
@@ -9,10 +9,34 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
+      }
+
+      // Trap focus inside the panel
+      if (e.key === 'Tab' && panelRef.current) {
+        const focusableElements = panelRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement?.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement?.focus();
+          }
+        }
       }
     },
     [onClose],
@@ -22,6 +46,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
+      // Move focus into the dialog
+      closeButtonRef.current?.focus();
     }
 
     return () => {
@@ -38,16 +64,19 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       aria-hidden={!isOpen}
     >
       {/* Backdrop */}
-      <div
-        className={`absolute inset-0 bg-charcoal/40 transition-opacity duration-300 ${
+      <button
+        type="button"
+        className={`absolute inset-0 w-full h-full bg-charcoal/40 transition-opacity duration-300 cursor-default ${
           isOpen ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={onClose}
         aria-label="Close menu"
+        tabIndex={-1}
       />
 
       {/* Panel */}
       <aside
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile menu"
@@ -58,6 +87,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       >
         <div className="flex items-center justify-end p-6">
           <button
+            ref={closeButtonRef}
             onClick={onClose}
             aria-label="Close menu"
             className="text-charcoal hover:text-terracotta transition-colors duration-200 p-1"

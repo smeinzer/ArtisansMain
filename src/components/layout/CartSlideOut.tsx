@@ -1,16 +1,19 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 
 export default function CartSlideOut() {
   const { items, removeItem, updateQuantity, subtotal, itemCount, isSlideOutOpen, closeSlideOut } = useCart();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (isSlideOutOpen) {
       document.body.style.overflow = 'hidden';
+      closeButtonRef.current?.focus();
     } else {
       document.body.style.overflow = '';
     }
@@ -19,15 +22,39 @@ export default function CartSlideOut() {
     };
   }, [isSlideOutOpen]);
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeSlideOut();
-    };
-    if (isSlideOutOpen) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      closeSlideOut();
     }
-  }, [isSlideOutOpen, closeSlideOut]);
+
+    // Trap focus inside the panel
+    if (e.key === 'Tab' && panelRef.current) {
+      const focusableElements = panelRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement?.focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement?.focus();
+        }
+      }
+    }
+  }, [closeSlideOut]);
+
+  useEffect(() => {
+    if (isSlideOutOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isSlideOutOpen, handleKeyDown]);
 
   return (
     <div
@@ -35,14 +62,17 @@ export default function CartSlideOut() {
       aria-hidden={!isSlideOutOpen}
     >
       {/* Backdrop */}
-      <div
-        className={`absolute inset-0 bg-charcoal/40 transition-opacity duration-300 ${isSlideOutOpen ? 'opacity-100' : 'opacity-0'}`}
+      <button
+        type="button"
+        className={`absolute inset-0 w-full h-full bg-charcoal/40 transition-opacity duration-300 cursor-default ${isSlideOutOpen ? 'opacity-100' : 'opacity-0'}`}
         onClick={closeSlideOut}
         aria-label="Close cart"
+        tabIndex={-1}
       />
 
       {/* Panel */}
       <aside
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Shopping cart"
@@ -57,6 +87,7 @@ export default function CartSlideOut() {
             Your Cart ({itemCount})
           </h2>
           <button
+            ref={closeButtonRef}
             onClick={closeSlideOut}
             aria-label="Close cart"
             className="text-charcoal hover:text-terracotta transition-colors duration-200 p-1"

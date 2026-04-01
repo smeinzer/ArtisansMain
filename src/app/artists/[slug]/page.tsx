@@ -54,7 +54,7 @@ export default async function ArtistPage({ params }: ArtistPageProps) {
         <div className="relative aspect-square overflow-hidden bg-cream-dark">
           <Image
             src={artist.headshot}
-            alt={artist.name}
+            alt={`Portrait of ${artist.name}`}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 360px"

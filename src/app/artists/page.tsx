@@ -1,5 +1,12 @@
+import type { Metadata } from 'next';
 import { demoArtists } from '@/lib/demo';
 import ArtistGrid from '@/components/artists/ArtistGrid';
+
+export const metadata: Metadata = {
+  title: 'Our Artists',
+  description:
+    'Meet the artists of Artisans On Main. Every piece in our Weaverville, NC gallery is handcrafted by makers rooted in Western North Carolina.',
+};
 
 export default function ArtistsPage() {
   return (

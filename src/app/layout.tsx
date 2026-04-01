@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/layout/Header';
@@ -19,16 +19,100 @@ const dmSans = DM_Sans({
   display: 'swap',
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#ffffff',
+};
+
 export const metadata: Metadata = {
-  title: 'Artisans On Main — Handcrafted Art from the Blue Ridge',
-  description:
-    'Discover handcrafted art, fine goods, and unique creations from local artisans in the heart of the Blue Ridge Mountains.',
-  openGraph: {
-    title: 'Artisans On Main — Handcrafted Art from the Blue Ridge',
-    description:
-      'Discover handcrafted art, fine goods, and unique creations from local artisans in the heart of the Blue Ridge Mountains.',
-    type: 'website',
+  metadataBase: new URL('https://artisans-on-main.vercel.app'),
+  title: {
+    template: '%s — Artisans On Main',
+    default: 'Artisans On Main — Curated Art Gallery in Weaverville, NC',
   },
+  description:
+    'Artisans On Main is a curated art consignment gallery in Weaverville, NC featuring handcrafted paintings, ceramics, jewelry, and more from local Appalachian artists.',
+  keywords: [
+    'art gallery',
+    'Weaverville NC',
+    'Appalachian artists',
+    'handcrafted art',
+    'consignment gallery',
+    'ceramics',
+    'paintings',
+    'jewelry',
+    'Blue Ridge art',
+    'Western North Carolina',
+  ],
+  authors: [{ name: 'Artisans On Main' }],
+  openGraph: {
+    title: 'Artisans On Main — Curated Art Gallery in Weaverville, NC',
+    description:
+      'Artisans On Main is a curated art consignment gallery in Weaverville, NC featuring handcrafted paintings, ceramics, jewelry, and more from local Appalachian artists.',
+    url: 'https://artisans-on-main.vercel.app',
+    siteName: 'Artisans On Main',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Artisans On Main — Curated Art Gallery in Weaverville, NC',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Artisans On Main — Curated Art Gallery in Weaverville, NC',
+    description:
+      'Artisans On Main is a curated art consignment gallery in Weaverville, NC featuring handcrafted paintings, ceramics, jewelry, and more from local Appalachian artists.',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ArtGallery',
+  name: 'Artisans On Main',
+  description:
+    'Curated art consignment gallery featuring handcrafted works from local Appalachian artists',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '18 N Main St',
+    addressLocality: 'Weaverville',
+    addressRegion: 'NC',
+    postalCode: '28787',
+    addressCountry: 'US',
+  },
+  telephone: '(828) 555-0192',
+  url: 'https://artisans-on-main.vercel.app',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '10:00',
+      closes: '18:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Sunday',
+      opens: '12:00',
+      closes: '17:00',
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -42,9 +126,19 @@ export default function RootLayout({
       className={`${cormorantGaramond.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <CartProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-terracotta focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium"
+          >
+            Skip to main content
+          </a>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">{children}</main>
           <Footer />
         </CartProvider>
       </body>

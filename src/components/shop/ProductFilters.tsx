@@ -86,6 +86,7 @@ export default function ProductFilters({
         value={currentFilters.category ?? ''}
         onChange={(e) => handleCategoryChange(e.target.value)}
         className={selectClasses}
+        aria-label="Filter by category"
       >
         <option value="">All Categories</option>
         {categories.map((cat) => (
@@ -99,6 +100,7 @@ export default function ProductFilters({
         value={currentFilters.artist ?? ''}
         onChange={(e) => handleArtistChange(e.target.value)}
         className={selectClasses}
+        aria-label="Filter by artist"
       >
         <option value="">All Artists</option>
         {artists.map((artist) => (
@@ -112,6 +114,7 @@ export default function ProductFilters({
         value={currentFilters.priceRange ? priceRangeToString(currentFilters.priceRange) : 'All Prices'}
         onChange={(e) => handlePriceChange(e.target.value)}
         className={selectClasses}
+        aria-label="Filter by price range"
       >
         {priceRangeOptions.map((opt) => (
           <option key={opt.label} value={opt.label}>
@@ -124,6 +127,7 @@ export default function ProductFilters({
         value={currentSort}
         onChange={(e) => onSortChange(e.target.value)}
         className={selectClasses}
+        aria-label="Sort products"
       >
         {sortOptions.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -160,6 +164,8 @@ export default function ProductFilters({
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="flex items-center gap-2 border border-border px-4 py-2 text-sm text-charcoal bg-white w-full justify-between"
+          aria-expanded={mobileOpen}
+          aria-label="Filter and sort products"
         >
           <span className="font-sans">
             Filter &amp; Sort
@@ -172,6 +178,7 @@ export default function ProductFilters({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>

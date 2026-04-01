@@ -52,7 +52,7 @@ export default function ShopPage() {
       <h1 className="font-serif text-4xl md:text-5xl font-medium text-charcoal mb-2">
         The Collection
       </h1>
-      <p className="text-sm text-warm-gray mb-10">
+      <p className="text-sm text-warm-gray mb-10" aria-live="polite" aria-atomic="true">
         {filteredProducts.length} piece{filteredProducts.length !== 1 ? 's' : ''}
       </p>
 

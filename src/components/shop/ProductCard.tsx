@@ -16,6 +16,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          quality={85}
         />
         {!product.available && (
           <div className="absolute top-3 left-3 px-2.5 py-1 bg-charcoal/80 text-white text-xs tracking-wide">

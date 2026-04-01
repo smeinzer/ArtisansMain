@@ -1,9 +1,10 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 
-export const metadata = {
-  title: 'About — Artisans On Main',
+export const metadata: Metadata = {
+  title: 'About',
   description:
     'Learn about Artisans On Main, a curated art consignment gallery in Weaverville, NC showcasing handcrafted work from Western North Carolina artists.',
 };
@@ -34,6 +35,7 @@ export default function AboutPage() {
               fill
               className="object-cover"
               sizes="(max-width: 768px) 50vw, 33vw"
+              priority
             />
           </div>
           <div className="relative aspect-square overflow-hidden bg-cream-dark">
