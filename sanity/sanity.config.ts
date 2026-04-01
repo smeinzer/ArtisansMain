@@ -6,8 +6,8 @@ import { schemaTypes } from './schemas';
 export default defineConfig({
   name: 'artisans-on-main',
   title: 'Artisans On Main',
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'placeholder',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  projectId: 'y3eiyxtt',
+  dataset: 'production',
   plugins: [structureTool(), visionTool()],
   schema: {
     types: schemaTypes,
