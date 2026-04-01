@@ -8,6 +8,7 @@ export default defineConfig({
   title: 'Artisans On Main',
   projectId: 'y3eiyxtt',
   dataset: 'production',
+  basePath: '/studio',
   plugins: [structureTool(), visionTool()],
   schema: {
     types: schemaTypes,
