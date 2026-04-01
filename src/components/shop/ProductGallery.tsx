@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Lightbox from '@/components/ui/Lightbox';
 
 interface ProductGalleryProps {
   images: string[];
@@ -10,10 +11,16 @@ interface ProductGalleryProps {
 
 export default function ProductGallery({ images, title }: ProductGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   return (
     <div>
-      <div className="relative aspect-[4/5] overflow-hidden bg-cream-dark">
+      <button
+        type="button"
+        onClick={() => setLightboxOpen(true)}
+        aria-label="Open image in lightbox"
+        className="relative aspect-[4/5] w-full overflow-hidden bg-cream-dark cursor-zoom-in"
+      >
         {images.map((src, i) => (
           <Image
             key={src}
@@ -28,7 +35,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
             priority={i === 0}
           />
         ))}
-      </div>
+      </button>
 
       {images.length > 1 && (
         <div className="mt-3 flex gap-3 overflow-x-auto md:flex-wrap">
@@ -52,6 +59,16 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
             </button>
           ))}
         </div>
+      )}
+      {lightboxOpen && (
+        <Lightbox
+          images={images.map((src, i) => ({
+            src,
+            alt: `${title}${images.length > 1 ? ` - image ${i + 1}` : ''}`,
+          }))}
+          initialIndex={selectedIndex}
+          onClose={() => setLightboxOpen(false)}
+        />
       )}
     </div>
   );

@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import { CartProvider } from '@/context/CartContext';
+import { ToastProvider } from '@/components/ui/Toast';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import PageTransition from '@/components/ui/PageTransition';
+import ScrollProgress from '@/components/ui/ScrollProgress';
 import './globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -122,15 +125,20 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <CartProvider>
+          <ToastProvider>
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-terracotta focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium"
           >
             Skip to main content
           </a>
+          <ScrollProgress />
           <Header />
-          <main id="main-content" className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
+          </ToastProvider>
         </CartProvider>
       </body>
     </html>

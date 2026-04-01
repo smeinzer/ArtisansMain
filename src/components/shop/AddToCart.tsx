@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
+import { useToast } from '@/components/ui/Toast';
 import type { DemoProduct } from '@/lib/demo';
 
 interface AddToCartProps {
@@ -10,7 +11,21 @@ interface AddToCartProps {
 
 export default function AddToCart({ product }: AddToCartProps) {
   const { addItem } = useCart();
+  const { showToast } = useToast();
   const [quantity, setQuantity] = useState(1);
+  const [added, setAdded] = useState(false);
+  const revertTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const handleAddToCart = () => {
+    addItem(product, quantity);
+    setQuantity(1);
+
+    showToast(product.title ? `${product.title} added to cart` : 'Added to cart');
+
+    setAdded(true);
+    clearTimeout(revertTimer.current);
+    revertTimer.current = setTimeout(() => setAdded(false), 1000);
+  };
 
   if (!product.available) {
     return (
@@ -59,13 +74,35 @@ export default function AddToCart({ product }: AddToCartProps) {
         </div>
       </div>
       <button
-        onClick={() => {
-          addItem(product, quantity);
-          setQuantity(1);
-        }}
-        className="w-full bg-terracotta text-white py-3.5 tracking-wide hover:bg-terracotta-dark transition-colors duration-200"
+        onClick={handleAddToCart}
+        className={`w-full py-3.5 tracking-wide transition-all duration-200 active:scale-[0.97] ${
+          added
+            ? 'bg-charcoal text-cream'
+            : 'bg-terracotta text-white hover:bg-terracotta-dark'
+        }`}
       >
-        Add to Cart
+        {added ? (
+          <span className="inline-flex items-center justify-center gap-1.5">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M13.25 4.75L6.25 11.25L2.75 7.75"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            Added!
+          </span>
+        ) : (
+          'Add to Cart'
+        )}
       </button>
     </div>
   );
