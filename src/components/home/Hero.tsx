@@ -1,11 +1,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Hero() {
+interface HeroProps {
+  imageUrl?: string;
+  headline?: string;
+  subline?: string;
+}
+
+const DEFAULTS = {
+  imageUrl: 'https://picsum.photos/seed/artisans-hero/1600/900',
+  headline: 'Handcrafted Art from the Blue Ridge',
+  subline:
+    'A curated collection of paintings, ceramics, jewelry, and fine craft from the artists of Western North Carolina.',
+};
+
+export default function Hero({ imageUrl, headline, subline }: HeroProps) {
   return (
     <section className="relative h-[70vh] min-h-[500px] max-h-[800px] overflow-hidden">
       <Image
-        src="https://picsum.photos/seed/artisans-hero/1600/900"
+        src={imageUrl || DEFAULTS.imageUrl}
         alt="Curated handcrafted art displayed in the Artisans On Main gallery"
         fill
         className="object-cover"
@@ -19,10 +32,10 @@ export default function Hero() {
       <div className="relative z-10 flex h-full items-center justify-center px-6">
         <div className="text-center max-w-2xl">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight leading-[1.1]">
-            Handcrafted Art from the Blue Ridge
+            {headline || DEFAULTS.headline}
           </h1>
           <p className="mt-4 md:mt-6 text-base md:text-lg text-white/85 max-w-lg mx-auto leading-relaxed">
-            A curated collection of paintings, ceramics, jewelry, and fine craft from the artists of Western North Carolina.
+            {subline || DEFAULTS.subline}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link

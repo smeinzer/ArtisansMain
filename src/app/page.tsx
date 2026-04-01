@@ -3,6 +3,9 @@ import Hero from '@/components/home/Hero';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
 import Announcements from '@/components/home/Announcements';
 import VisitTeaser from '@/components/home/VisitTeaser';
+import { client } from '@/lib/sanity/client';
+import { getHomepageConfig } from '@/lib/sanity/queries';
+import { urlFor } from '@/lib/sanity/image';
 
 export const metadata: Metadata = {
   title: 'Artisans On Main — Curated Art Gallery in Weaverville, NC',
@@ -10,10 +13,31 @@ export const metadata: Metadata = {
     'Discover handcrafted paintings, ceramics, jewelry, and more from local Appalachian artists at Artisans On Main in Weaverville, NC.',
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  let heroImageUrl: string | undefined;
+  let heroHeadline: string | undefined;
+  let heroSubline: string | undefined;
+
+  try {
+    const config = await client.fetch(getHomepageConfig);
+    if (config) {
+      if (config.heroImage) {
+        heroImageUrl = urlFor(config.heroImage).width(1600).height(900).url();
+      }
+      heroHeadline = config.heroHeadline;
+      heroSubline = config.heroSubline;
+    }
+  } catch {
+    // Sanity unavailable — fall through to defaults
+  }
+
   return (
     <>
-      <Hero />
+      <Hero
+        imageUrl={heroImageUrl}
+        headline={heroHeadline}
+        subline={heroSubline}
+      />
       <FeaturedProducts />
       <Announcements />
       <VisitTeaser />
