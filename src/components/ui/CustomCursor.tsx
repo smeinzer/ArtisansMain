@@ -62,10 +62,17 @@ export default function CustomCursor() {
   }, []);
 
   useEffect(() => {
-    if (isStudio) return;
+    if (isStudio) {
+      // Ensure native cursor is restored on Studio pages
+      document.documentElement.classList.remove('custom-cursor-active');
+      return;
+    }
 
     const hoverQuery = window.matchMedia('(hover: hover)');
     if (!hoverQuery.matches) return;
+
+    // Hide native cursor via class (CSS rule in globals.css)
+    document.documentElement.classList.add('custom-cursor-active');
 
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current.x = e.clientX;
@@ -123,6 +130,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
       cancelAnimationFrame(rafId.current);
+      document.documentElement.classList.remove('custom-cursor-active');
     };
   }, [isStudio, updateCirclePosition, applyColors]);
 
