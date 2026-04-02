@@ -3,8 +3,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 
-type CursorMode = 'default' | 'interactive' | 'view' | 'hidden';
-
 export default function CustomCursor() {
   const pathname = usePathname();
   const dotRef = useRef<HTMLDivElement>(null);
@@ -12,70 +10,10 @@ export default function CustomCursor() {
   const mousePos = useRef({ x: -100, y: -100 });
   const circlePos = useRef({ x: -100, y: -100 });
   const rafId = useRef<number>(0);
-  const modeRef = useRef<CursorMode>('default');
   const isVisible = useRef(false);
+  const isInteractive = useRef(false);
 
   const isStudio = pathname.startsWith('/studio');
-
-  const applyMode = useCallback((newMode: CursorMode) => {
-    if (modeRef.current === newMode) return;
-    modeRef.current = newMode;
-
-    const dot = dotRef.current;
-    const circle = circleRef.current;
-    if (!dot || !circle) return;
-
-    const label = circle.querySelector('span') as HTMLSpanElement | null;
-
-    switch (newMode) {
-      case 'view':
-        dot.style.width = '0px';
-        dot.style.height = '0px';
-        circle.style.width = '80px';
-        circle.style.height = '80px';
-        circle.style.border = 'none';
-        circle.style.backgroundColor = 'rgba(44, 44, 44, 0.8)';
-        if (label) {
-          label.style.opacity = '1';
-          label.textContent = 'View';
-        }
-        break;
-      case 'interactive':
-        dot.style.width = '8px';
-        dot.style.height = '8px';
-        circle.style.width = '48px';
-        circle.style.height = '48px';
-        circle.style.border = '1px solid rgba(44, 44, 44, 0.4)';
-        circle.style.backgroundColor = 'transparent';
-        if (label) {
-          label.style.opacity = '0';
-          label.textContent = '';
-        }
-        break;
-      case 'hidden':
-        dot.style.opacity = '0';
-        circle.style.opacity = '0';
-        break;
-      default:
-        dot.style.width = '8px';
-        dot.style.height = '8px';
-        circle.style.width = '36px';
-        circle.style.height = '36px';
-        circle.style.border = '1px solid rgba(44, 44, 44, 0.4)';
-        circle.style.backgroundColor = 'transparent';
-        if (label) {
-          label.style.opacity = '0';
-          label.textContent = '';
-        }
-        break;
-    }
-
-    // Restore visibility when switching away from hidden
-    if (newMode !== 'hidden' && isVisible.current) {
-      dot.style.opacity = '1';
-      circle.style.opacity = '1';
-    }
-  }, []);
 
   const updateCirclePosition = useCallback(() => {
     const lerp = 0.15;
@@ -109,28 +47,25 @@ export default function CustomCursor() {
         if (circleRef.current) circleRef.current.style.opacity = '1';
       }
 
-      const target = e.target as HTMLElement;
-
-      // Check for lightbox
-      if (target.closest('[data-lightbox]')) {
-        applyMode('hidden');
-        return;
-      }
-
-      // Check for data-cursor="view"
-      const cursorEl = target.closest('[data-cursor]');
-      if (cursorEl && cursorEl.getAttribute('data-cursor') === 'view') {
-        applyMode('view');
-        return;
-      }
-
       // Check for interactive elements
-      if (target.closest('a, button, [role="button"], input, textarea, select, label')) {
-        applyMode('interactive');
-        return;
-      }
+      const target = e.target as HTMLElement;
+      const interactive = !!target.closest('a, button, [role="button"], input, textarea, select, label');
 
-      applyMode('default');
+      if (interactive !== isInteractive.current) {
+        isInteractive.current = interactive;
+        if (circleRef.current) {
+          circleRef.current.style.width = interactive ? '48px' : '36px';
+          circleRef.current.style.height = interactive ? '48px' : '36px';
+          circleRef.current.style.borderColor = interactive
+            ? 'rgba(198, 125, 91, 0.6)'
+            : 'rgba(44, 44, 44, 0.35)';
+        }
+        if (dotRef.current) {
+          dotRef.current.style.backgroundColor = interactive
+            ? '#C67D5B'
+            : '#2C2C2C';
+        }
+      }
     };
 
     const handleMouseLeave = () => {
@@ -141,10 +76,8 @@ export default function CustomCursor() {
 
     const handleMouseEnter = () => {
       isVisible.current = true;
-      if (modeRef.current !== 'hidden') {
-        if (dotRef.current) dotRef.current.style.opacity = '1';
-        if (circleRef.current) circleRef.current.style.opacity = '1';
-      }
+      if (dotRef.current) dotRef.current.style.opacity = '1';
+      if (circleRef.current) circleRef.current.style.opacity = '1';
     };
 
     document.addEventListener('mousemove', handleMouseMove);
@@ -159,7 +92,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseenter', handleMouseEnter);
       cancelAnimationFrame(rafId.current);
     };
-  }, [isStudio, updateCirclePosition, applyMode]);
+  }, [isStudio, updateCirclePosition]);
 
   if (isStudio) return null;
 
@@ -167,39 +100,30 @@ export default function CustomCursor() {
     <>
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
           width: 8,
           height: 8,
           borderRadius: '50%',
-          backgroundColor: 'var(--color-charcoal)',
+          backgroundColor: '#2C2C2C',
           opacity: 0,
-          transition: 'width 0.2s ease-out, height 0.2s ease-out, opacity 0.15s ease-out',
+          transition: 'background-color 0.2s ease-out, opacity 0.15s ease-out',
         }}
         aria-hidden="true"
       />
       <div
         ref={circleRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference flex items-center justify-center"
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
           width: 36,
           height: 36,
           borderRadius: '50%',
-          border: '1px solid rgba(44, 44, 44, 0.4)',
-          backgroundColor: 'transparent',
+          border: '1px solid rgba(44, 44, 44, 0.35)',
           opacity: 0,
-          transition: 'width 0.2s ease-out, height 0.2s ease-out, background-color 0.2s ease-out, border 0.2s ease-out, opacity 0.15s ease-out',
+          transition: 'width 0.2s ease-out, height 0.2s ease-out, border-color 0.2s ease-out, opacity 0.15s ease-out',
         }}
         aria-hidden="true"
-      >
-        <span
-          className="text-white text-xs tracking-widest uppercase select-none"
-          style={{
-            opacity: 0,
-            transition: 'opacity 0.2s ease-out',
-          }}
-        />
-      </div>
+      />
     </>
   );
 }
