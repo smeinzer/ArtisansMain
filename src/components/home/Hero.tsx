@@ -18,7 +18,7 @@ const DEFAULTS = {
 
 export default function Hero({ imageUrl, headline, subline }: HeroProps) {
   return (
-    <section className="relative h-[70vh] min-h-[500px] max-h-[800px] overflow-hidden">
+    <section data-theme="dark" className="relative h-[70vh] min-h-[500px] max-h-[800px] overflow-hidden">
       <ParallaxImage
         src={imageUrl || DEFAULTS.imageUrl}
         alt="Curated handcrafted art displayed in the Artisans On Main gallery"

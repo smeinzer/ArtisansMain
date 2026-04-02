@@ -3,6 +3,21 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 
+// Color schemes
+const LIGHT_BG = {
+  dot: '#2C2C2C',
+  circle: 'rgba(44, 44, 44, 0.35)',
+  dotInteractive: '#C67D5B',
+  circleInteractive: 'rgba(198, 125, 91, 0.6)',
+};
+
+const DARK_BG = {
+  dot: '#FAF8F5',
+  circle: 'rgba(250, 248, 245, 0.35)',
+  dotInteractive: '#D4956F',
+  circleInteractive: 'rgba(212, 149, 111, 0.6)',
+};
+
 export default function CustomCursor() {
   const pathname = usePathname();
   const dotRef = useRef<HTMLDivElement>(null);
@@ -12,6 +27,7 @@ export default function CustomCursor() {
   const rafId = useRef<number>(0);
   const isVisible = useRef(false);
   const isInteractive = useRef(false);
+  const isOverDark = useRef(false);
 
   const isStudio = pathname.startsWith('/studio');
 
@@ -25,6 +41,24 @@ export default function CustomCursor() {
     }
 
     rafId.current = requestAnimationFrame(updateCirclePosition);
+  }, []);
+
+  const applyColors = useCallback(() => {
+    const colors = isOverDark.current ? DARK_BG : LIGHT_BG;
+    const interactive = isInteractive.current;
+
+    if (dotRef.current) {
+      dotRef.current.style.backgroundColor = interactive
+        ? colors.dotInteractive
+        : colors.dot;
+    }
+    if (circleRef.current) {
+      circleRef.current.style.borderColor = interactive
+        ? colors.circleInteractive
+        : colors.circle;
+      circleRef.current.style.width = interactive ? '48px' : '36px';
+      circleRef.current.style.height = interactive ? '48px' : '36px';
+    }
   }, []);
 
   useEffect(() => {
@@ -47,24 +81,22 @@ export default function CustomCursor() {
         if (circleRef.current) circleRef.current.style.opacity = '1';
       }
 
-      // Check for interactive elements
       const target = e.target as HTMLElement;
-      const interactive = !!target.closest('a, button, [role="button"], input, textarea, select, label');
 
-      if (interactive !== isInteractive.current) {
-        isInteractive.current = interactive;
-        if (circleRef.current) {
-          circleRef.current.style.width = interactive ? '48px' : '36px';
-          circleRef.current.style.height = interactive ? '48px' : '36px';
-          circleRef.current.style.borderColor = interactive
-            ? 'rgba(198, 125, 91, 0.6)'
-            : 'rgba(44, 44, 44, 0.35)';
+      // Check if over a dark section
+      const overDark = !!target.closest('[data-theme="dark"]');
+      const interactiveChanged = (() => {
+        const interactive = !!target.closest('a, button, [role="button"], input, textarea, select, label');
+        if (interactive !== isInteractive.current) {
+          isInteractive.current = interactive;
+          return true;
         }
-        if (dotRef.current) {
-          dotRef.current.style.backgroundColor = interactive
-            ? '#C67D5B'
-            : '#2C2C2C';
-        }
+        return false;
+      })();
+
+      if (overDark !== isOverDark.current || interactiveChanged) {
+        isOverDark.current = overDark;
+        applyColors();
       }
     };
 
@@ -92,7 +124,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseenter', handleMouseEnter);
       cancelAnimationFrame(rafId.current);
     };
-  }, [isStudio, updateCirclePosition]);
+  }, [isStudio, updateCirclePosition, applyColors]);
 
   if (isStudio) return null;
 
@@ -105,9 +137,9 @@ export default function CustomCursor() {
           width: 8,
           height: 8,
           borderRadius: '50%',
-          backgroundColor: '#2C2C2C',
+          backgroundColor: LIGHT_BG.dot,
           opacity: 0,
-          transition: 'background-color 0.2s ease-out, opacity 0.15s ease-out',
+          transition: 'background-color 0.3s ease-out, opacity 0.15s ease-out',
         }}
         aria-hidden="true"
       />
@@ -118,9 +150,9 @@ export default function CustomCursor() {
           width: 36,
           height: 36,
           borderRadius: '50%',
-          border: '1px solid rgba(44, 44, 44, 0.35)',
+          border: `1px solid ${LIGHT_BG.circle}`,
           opacity: 0,
-          transition: 'width 0.2s ease-out, height 0.2s ease-out, border-color 0.2s ease-out, opacity 0.15s ease-out',
+          transition: 'width 0.2s ease-out, height 0.2s ease-out, border-color 0.3s ease-out, opacity 0.15s ease-out',
         }}
         aria-hidden="true"
       />
