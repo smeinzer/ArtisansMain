@@ -65,4 +65,16 @@ export default defineType({
       type: 'image',
     }),
   ],
+  preview: {
+    select: {
+      title: 'businessName',
+      media: 'logo',
+    },
+    prepare({ title, media }) {
+      return {
+        title: title || 'Site Settings',
+        media,
+      };
+    },
+  },
 });

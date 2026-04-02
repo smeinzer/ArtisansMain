@@ -46,4 +46,10 @@ export default defineType({
       type: 'string',
     }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+      media: 'headshot',
+    },
+  },
 });

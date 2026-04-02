@@ -6,6 +6,13 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      description: 'Internal label for this configuration (e.g. "Main Homepage")',
+      initialValue: 'Main Homepage',
+    }),
+    defineField({
       name: 'heroImage',
       title: 'Hero Image',
       type: 'image',
@@ -28,4 +35,18 @@ export default defineType({
       description: 'Shopify collection handle for featured products',
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'heroHeadline',
+      media: 'heroImage',
+    },
+    prepare({ title, subtitle, media }) {
+      return {
+        title: title || 'Homepage',
+        subtitle: subtitle || '',
+        media,
+      };
+    },
+  },
 });

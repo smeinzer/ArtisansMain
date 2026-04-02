@@ -34,4 +34,17 @@ export default defineType({
       initialValue: true,
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      isActive: 'isActive',
+      startDate: 'startDate',
+    },
+    prepare({ title, isActive, startDate }) {
+      return {
+        title: title || 'Untitled Announcement',
+        subtitle: `${isActive ? '🟢 Active' : '⏸ Inactive'}${startDate ? ` · ${startDate}` : ''}`,
+      };
+    },
+  },
 });
