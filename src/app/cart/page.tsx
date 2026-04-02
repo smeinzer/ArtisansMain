@@ -18,7 +18,7 @@ export default function CartPage() {
           <p className="text-warm-gray dark:text-dark-text-muted text-lg mb-6">Your cart is empty.</p>
           <Link
             href="/shop"
-            className="inline-block bg-terracotta text-white px-8 py-3 tracking-wide hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 transition-all duration-200"
+            className="inline-block bg-terracotta text-white px-8 py-3 tracking-wide hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta/40 transition-all duration-200"
           >
             Browse the Collection
           </Link>
@@ -77,7 +77,7 @@ export default function CartPage() {
                       onClick={() =>
                         updateQuantity(item.product.id, item.quantity - 1)
                       }
-                      className="px-3 py-2.5 text-sm text-charcoal dark:text-dark-text hover:text-terracotta active:scale-90 focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-1 transition-all duration-150"
+                      className="px-3 py-2.5 text-sm text-charcoal dark:text-dark-text hover:text-terracotta active:scale-90 transition-all duration-150"
                       aria-label={`Decrease quantity of ${item.product.title}`}
                     >
                       &minus;
@@ -89,7 +89,7 @@ export default function CartPage() {
                       onClick={() =>
                         updateQuantity(item.product.id, item.quantity + 1)
                       }
-                      className="px-3 py-2.5 text-sm text-charcoal dark:text-dark-text hover:text-terracotta active:scale-90 focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-1 transition-all duration-150"
+                      className="px-3 py-2.5 text-sm text-charcoal dark:text-dark-text hover:text-terracotta active:scale-90 transition-all duration-150"
                       aria-label={`Increase quantity of ${item.product.title}`}
                     >
                       +
@@ -146,7 +146,7 @@ export default function CartPage() {
                 Shipping and taxes calculated at checkout.
               </p>
               <button
-                className="w-full max-w-xs bg-terracotta text-white py-3.5 tracking-wide hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 transition-all duration-200"
+                className="w-full max-w-xs bg-terracotta text-white py-3.5 tracking-wide hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta/40 transition-all duration-200"
                 onClick={() => {
                   alert('Shopify checkout is not connected yet. In production, this redirects to Shopify hosted checkout.');
                 }}

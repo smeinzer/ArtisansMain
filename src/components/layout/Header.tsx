@@ -109,7 +109,7 @@ export default function Header() {
               <button
                 onClick={openSlideOut}
                 aria-label={`Shopping cart, ${itemCount} items`}
-                className={`relative transition-colors duration-500 p-2 -m-1 focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 rounded ${textColor} ${hoverColor}`}
+                className={`relative transition-colors duration-500 p-2 -m-1 ${textColor} ${hoverColor}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ export default function Header() {
               {/* Mobile hamburger */}
               <button
                 id="mobile-menu-trigger"
-                className={`md:hidden transition-colors duration-500 p-2 -m-1 focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 rounded ${textColor} ${hoverColor}`}
+                className={`md:hidden transition-colors duration-500 p-2 -m-1 ${textColor} ${hoverColor}`}
                 onClick={() => setMobileMenuOpen(true)}
                 aria-label="Open menu"
                 aria-expanded={mobileMenuOpen}

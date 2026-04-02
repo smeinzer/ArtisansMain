@@ -76,7 +76,7 @@ export default function AddToCart({ product }: AddToCartProps) {
       </div>
       <button
         onClick={handleAddToCart}
-        className={`w-full py-3 text-sm font-medium tracking-wide transition-all duration-200 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 ${
+        className={`w-full py-3 text-sm font-medium tracking-wide transition-all duration-200 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta/40 ${
           added
             ? 'bg-charcoal text-cream'
             : 'bg-terracotta text-white hover:bg-terracotta-dark'

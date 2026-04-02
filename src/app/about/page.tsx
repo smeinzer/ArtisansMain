@@ -166,7 +166,7 @@ export default function AboutPage() {
           <div className="pt-4">
             <Link
               href="/artists"
-              className="inline-block bg-terracotta text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 transition-all duration-200"
+              className="inline-block bg-terracotta text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta/40 transition-all duration-200"
             >
               Meet Our Artists
             </Link>

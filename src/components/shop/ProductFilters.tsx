@@ -46,7 +46,7 @@ function stringToPriceRange(str: string): [number, number] | null {
 }
 
 const selectClasses =
-  'w-full md:w-auto appearance-none border border-border dark:border-dark-border bg-white dark:bg-dark-surface px-3 py-2.5 text-sm text-charcoal dark:text-dark-text focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-1 transition-colors duration-300 squircle-sm';
+  'w-full md:w-auto appearance-none border border-border dark:border-dark-border bg-white dark:bg-dark-surface px-3 py-2.5 text-sm text-charcoal dark:text-dark-text focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/40 transition-colors duration-300 squircle-sm';
 
 export default function ProductFilters({
   categories,
