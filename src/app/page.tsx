@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/home/Hero';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
+import HorizontalGallery from '@/components/home/HorizontalGallery';
+import ImpactStats from '@/components/home/ImpactStats';
 import Announcements from '@/components/home/Announcements';
 import Marquee from '@/components/ui/Marquee';
 import VisitTeaser from '@/components/home/VisitTeaser';
@@ -46,6 +48,8 @@ export default async function HomePage() {
       <Marquee
         items={['Paintings', 'Ceramics', 'Jewelry', 'Textiles', 'Sculpture', 'Photography', 'Mixed Media']}
       />
+      <HorizontalGallery />
+      <ImpactStats />
       <Announcements />
       <VisitTeaser />
     </>

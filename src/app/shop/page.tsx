@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { demoProducts, demoArtists } from '@/lib/demo';
 import ProductFilters, { type FilterState } from '@/components/shop/ProductFilters';
 import ProductGrid from '@/components/shop/ProductGrid';
+import SplitText from '@/components/ui/SplitText';
 
 const categories = Array.from(new Set(demoProducts.map((p) => p.category))).sort();
 const artistNames = demoArtists.map((a) => a.name).sort();
@@ -49,9 +50,11 @@ export default function ShopPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-16">
-      <h1 className="font-serif text-4xl md:text-5xl font-medium text-charcoal mb-2">
-        The Collection
-      </h1>
+      <SplitText
+        text="The Collection"
+        as="h1"
+        className="font-serif text-4xl md:text-5xl font-medium text-charcoal mb-2"
+      />
       <p className="text-sm text-warm-gray mb-10" aria-live="polite" aria-atomic="true">
         {filteredProducts.length} piece{filteredProducts.length !== 1 ? 's' : ''}
       </p>

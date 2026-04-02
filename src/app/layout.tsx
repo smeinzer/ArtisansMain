@@ -9,6 +9,7 @@ import ScrollProgress from '@/components/ui/ScrollProgress';
 import SmoothScroll from '@/components/ui/SmoothScroll';
 import FilmGrain from '@/components/ui/FilmGrain';
 import CustomCursor from '@/components/ui/CustomCursor';
+import Preloader from '@/components/ui/Preloader';
 import './globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -122,11 +123,12 @@ export default function RootLayout({
       lang="en"
       className={`${cormorantGaramond.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Preloader />
         <SmoothScroll>
           <CustomCursor />
           <CartProvider>
@@ -138,10 +140,14 @@ export default function RootLayout({
               Skip to main content
             </a>
             <ScrollProgress />
-            <Header />
-            <main id="main-content" className="flex-1">
-              <PageTransition>{children}</PageTransition>
-            </main>
+            {/* Main content wrapper sits above the fixed footer */}
+            <div className="relative z-10 bg-cream flex flex-col min-h-screen shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]">
+              <Header />
+              <main id="main-content" className="flex-1">
+                <PageTransition>{children}</PageTransition>
+              </main>
+            </div>
+            {/* Footer is revealed as you scroll past the content */}
             <Footer />
             </ToastProvider>
           </CartProvider>

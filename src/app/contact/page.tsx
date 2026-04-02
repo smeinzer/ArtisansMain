@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { demoSiteSettings } from '@/lib/demo';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
+import SplitText from '@/components/ui/SplitText';
 
 export default function ContactPage() {
   const { phone, email, address, socialLinks } = demoSiteSettings;
@@ -40,9 +41,11 @@ export default function ContactPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10 md:py-16">
-      <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight">
-        Get in Touch
-      </h1>
+      <SplitText
+        text="Get in Touch"
+        as="h1"
+        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
+      />
       <p className="mt-4 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed">
         Have a question about a piece, interested in consigning your work, or
         just want to say hello? We&rsquo;d love to hear from you.

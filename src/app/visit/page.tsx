@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { demoSiteSettings } from '@/lib/demo';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
+import SplitText from '@/components/ui/SplitText';
 
 export const metadata: Metadata = {
   title: 'Visit Us',
@@ -13,9 +14,11 @@ export default function VisitPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10 md:py-16">
-      <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight">
-        Visit Us
-      </h1>
+      <SplitText
+        text="Visit Us"
+        as="h1"
+        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
+      />
       <p className="mt-4 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed">
         We&rsquo;d love to see you in the gallery. Stop by to browse, meet our
         artists at an opening, or simply enjoy a quiet moment with beautiful

@@ -51,8 +51,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
       />
 
       <div className="mt-8 grid md:grid-cols-2 gap-10 lg:gap-16">
-        {/* Gallery */}
-        <ProductGallery images={product.images} title={product.title} />
+        {/* Gallery — sticky on desktop so it stays visible while scrolling details */}
+        <div className="md:sticky md:top-24 md:self-start">
+          <ProductGallery images={product.images} title={product.title} />
+        </div>
 
         {/* Product Info */}
         <div className="flex flex-col gap-6">

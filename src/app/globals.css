@@ -148,6 +148,29 @@ html {
   animation: grain-shift 0.5s steps(10) infinite;
 }
 
+/* Preloader animations */
+@keyframes preloader-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    letter-spacing: 0.15em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: -0.01em;
+  }
+}
+
+@keyframes preloader-line-in {
+  from {
+    width: 0;
+  }
+  to {
+    width: 60px;
+  }
+}
+
 /* Focus styles for accessibility */
 :focus-visible {
   outline: 2px solid var(--color-terracotta);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import MobileMenu from './MobileMenu';
@@ -17,12 +17,34 @@ const desktopNavLinks = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { itemCount, openSlideOut } = useCart();
+  const [scrolled, setScrolled] = useState(false);
+  const rafId = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 50);
+      });
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(rafId.current);
+    };
+  }, []);
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-cream border-b border-border">
+      <header
+        className={`sticky top-0 z-40 transition-all duration-300 ${
+          scrolled
+            ? 'bg-cream/80 backdrop-blur-md shadow-sm border-b border-transparent'
+            : 'bg-cream border-b border-border'
+        }`}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? 'h-14' : 'h-16'}`}>
             {/* Logo / Business name */}
             <Link
               href="/"

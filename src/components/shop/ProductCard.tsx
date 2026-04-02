@@ -55,7 +55,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
         </div>
-        <div className="mt-3 space-y-1">
+        <div className="mt-4 px-1 pb-1 space-y-1">
           <h3 className="text-sm font-medium text-charcoal group-hover:text-terracotta transition-colors duration-200 leading-snug">
             {product.title}
           </h3>

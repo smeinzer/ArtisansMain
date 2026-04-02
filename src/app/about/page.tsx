@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 import ImageReveal from '@/components/ui/ImageReveal';
+import SplitText from '@/components/ui/SplitText';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -15,9 +16,11 @@ export default function AboutPage() {
     <div className="max-w-7xl mx-auto px-6 py-10 md:py-16">
       {/* Hero section */}
       <div className="max-w-3xl">
-        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight">
-          A Gallery Built on Craft
-        </h1>
+        <SplitText
+          text="A Gallery Built on Craft"
+          as="h1"
+          className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
+        />
         <p className="mt-6 text-warm-gray text-base md:text-lg leading-relaxed">
           Artisans On Main is a curated consignment gallery in the heart of
           downtown Weaverville, North Carolina — just minutes north of
