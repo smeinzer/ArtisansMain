@@ -102,8 +102,8 @@ export default function Header() {
 
             {/* Right section: theme toggle + cart + mobile hamburger */}
             <div className="flex items-center gap-2 sm:gap-3">
-              {/* Theme toggle */}
-              <ThemeToggle className={`${textColor} ${hoverColor}`} />
+              {/* Theme toggle — desktop only, mobile toggle lives in MobileMenu */}
+              <ThemeToggle className={`hidden md:flex ${textColor} ${hoverColor}`} />
 
               {/* Cart icon */}
               <button

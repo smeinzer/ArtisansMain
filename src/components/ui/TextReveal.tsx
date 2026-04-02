@@ -59,6 +59,8 @@ export default function TextReveal({
             display: 'inline-block',
             overflow: 'hidden',
             marginRight: '0.25em',
+            verticalAlign: 'bottom',
+            paddingBottom: '0.1em',
           }}
         >
           <span

@@ -4,6 +4,7 @@ import { useEffect, useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { demoSiteSettings } from '@/lib/demo';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -107,12 +108,14 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <span className="font-serif text-xl text-charcoal dark:text-dark-text tracking-tight">
             Artisans On Main
           </span>
-          <button
-            ref={closeButtonRef}
-            onClick={onClose}
-            aria-label="Close menu"
-            className="text-charcoal dark:text-dark-text hover:text-terracotta transition-colors duration-200 p-1"
-          >
+          <div className="flex items-center gap-2">
+            <ThemeToggle className="text-charcoal dark:text-dark-text hover:text-terracotta" />
+            <button
+              ref={closeButtonRef}
+              onClick={onClose}
+              aria-label="Close menu"
+              className="text-charcoal dark:text-dark-text hover:text-terracotta transition-colors duration-200 p-1"
+            >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="28"
@@ -128,7 +131,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
-          </button>
+            </button>
+          </div>
         </div>
 
         {/* Navigation links — staggered entrance */}
