@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { demoSiteSettings } from '@/lib/demo';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
+import MagneticButton from '@/components/ui/MagneticButton';
 
 export default function VisitTeaser() {
   const { address, phone } = demoSiteSettings;
@@ -53,12 +54,14 @@ export default function VisitTeaser() {
 
         <AnimateOnScroll delay={250}>
           <div className="mt-10">
-            <Link
-              href="/visit"
-              className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium tracking-wide text-white bg-terracotta hover:bg-terracotta-dark transition-colors duration-200"
-            >
-              Plan Your Visit
-            </Link>
+            <MagneticButton strength={0.25}>
+              <Link
+                href="/visit"
+                className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium tracking-wide text-white bg-terracotta hover:bg-terracotta-dark transition-colors duration-200"
+              >
+                Plan Your Visit
+              </Link>
+            </MagneticButton>
           </div>
         </AnimateOnScroll>
       </div>

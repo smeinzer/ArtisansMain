@@ -1,3 +1,5 @@
+import TextReveal from '@/components/ui/TextReveal';
+
 interface SectionHeadingProps {
   title: string;
   subtitle?: string;
@@ -11,9 +13,13 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={align === 'center' ? 'text-center' : 'text-left'}>
-      <h2 className="text-3xl md:text-4xl font-medium tracking-tight">
-        {title}
-      </h2>
+      <TextReveal
+        text={title}
+        as="h2"
+        className="text-3xl md:text-4xl font-medium tracking-tight"
+        trigger="onScroll"
+        staggerDelay={40}
+      />
       {subtitle && (
         <p className="mt-3 text-warm-gray text-base md:text-lg max-w-2xl mx-auto">
           {subtitle}

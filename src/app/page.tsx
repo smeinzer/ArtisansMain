@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Hero from '@/components/home/Hero';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
 import Announcements from '@/components/home/Announcements';
+import Marquee from '@/components/ui/Marquee';
 import VisitTeaser from '@/components/home/VisitTeaser';
 import { client } from '@/lib/sanity/client';
 import { getHomepageConfig } from '@/lib/sanity/queries';
@@ -42,6 +43,9 @@ export default async function HomePage() {
         subline={heroSubline}
       />
       <FeaturedProducts />
+      <Marquee
+        items={['Paintings', 'Ceramics', 'Jewelry', 'Textiles', 'Sculpture', 'Photography', 'Mixed Media']}
+      />
       <Announcements />
       <VisitTeaser />
     </>
