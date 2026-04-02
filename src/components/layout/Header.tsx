@@ -66,7 +66,7 @@ export default function Header() {
           inverted
             ? scrolled
               ? 'bg-charcoal/80 backdrop-blur-md shadow-sm border-b border-transparent'
-              : 'bg-transparent border-b border-transparent'
+              : 'bg-charcoal/60 backdrop-blur-sm md:bg-transparent border-b border-transparent'
             : scrolled
               ? 'bg-cream/80 backdrop-blur-md shadow-sm border-b border-transparent'
               : 'bg-cream border-b border-border'
