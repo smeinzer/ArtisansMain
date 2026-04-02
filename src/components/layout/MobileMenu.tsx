@@ -71,8 +71,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       setAnimateLinks(false);
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
-      // Return focus to the trigger button
-      document.getElementById('mobile-menu-trigger')?.focus();
+      // Return focus to the trigger button, then immediately blur
+      // so the outline doesn't persist on mobile scroll
+      const trigger = document.getElementById('mobile-menu-trigger');
+      if (trigger) {
+        trigger.focus();
+        trigger.blur();
+      }
     }
   }, [isOpen, handleKeyDown]);
 
