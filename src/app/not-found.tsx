@@ -19,14 +19,14 @@ export default function NotFound() {
       <div className="mt-10 flex flex-col gap-4 sm:flex-row">
         <Link
           href="/"
-          className="inline-block rounded-md bg-terracotta px-8 py-3 font-sans text-sm font-medium text-white transition hover:bg-terracotta-dark"
+          className="inline-block rounded-md bg-terracotta px-8 py-3 font-sans text-sm font-medium text-white transition hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
         >
           Back to Home
         </Link>
 
         <Link
           href="/shop"
-          className="inline-block rounded-md border border-charcoal dark:border-dark-border px-8 py-3 font-sans text-sm font-medium text-charcoal dark:text-dark-text transition hover:bg-charcoal hover:text-cream dark:hover:bg-dark-surface"
+          className="inline-block rounded-md border border-charcoal dark:border-dark-border px-8 py-3 font-sans text-sm font-medium text-charcoal dark:text-dark-text transition hover:bg-charcoal hover:text-cream dark:hover:bg-dark-surface active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
         >
           Browse the Shop
         </Link>

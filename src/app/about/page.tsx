@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   title: 'About',
   description:
     'Learn about Artisans On Main, a curated art consignment gallery in Weaverville, NC showcasing handcrafted work from Western North Carolina artists.',
+  openGraph: {
+    title: 'About — Artisans On Main',
+    description:
+      'A curated consignment gallery in downtown Weaverville, NC connecting the talented makers of Western North Carolina with the people who appreciate their work.',
+  },
 };
 
 export default function AboutPage() {
@@ -161,7 +166,7 @@ export default function AboutPage() {
           <div className="pt-4">
             <Link
               href="/artists"
-              className="inline-block bg-terracotta text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-terracotta-dark transition-colors duration-200"
+              className="inline-block bg-terracotta text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 transition-all duration-200"
             >
               Meet Our Artists
             </Link>

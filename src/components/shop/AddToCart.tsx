@@ -31,6 +31,7 @@ export default function AddToCart({ product }: AddToCartProps) {
     return (
       <button
         disabled
+        aria-disabled="true"
         className="w-full bg-warm-gray-light dark:bg-dark-surface text-warm-gray dark:text-dark-text-muted py-3 text-sm font-medium tracking-wide cursor-not-allowed"
       >
         Sold
@@ -47,7 +48,7 @@ export default function AddToCart({ product }: AddToCartProps) {
         <div className="flex items-center border border-border dark:border-warm-gray/30">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            className="px-3 py-2 text-sm text-charcoal dark:text-cream hover:text-terracotta transition-colors"
+            className="px-3 py-2 text-sm text-charcoal dark:text-cream hover:text-terracotta active:scale-90 focus-visible:ring-2 focus-visible:ring-terracotta transition-all duration-150"
             aria-label="Decrease quantity"
           >
             &minus;
@@ -66,7 +67,7 @@ export default function AddToCart({ product }: AddToCartProps) {
           />
           <button
             onClick={() => setQuantity((q) => Math.min(99, q + 1))}
-            className="px-3 py-2 text-sm text-charcoal dark:text-cream hover:text-terracotta transition-colors"
+            className="px-3 py-2 text-sm text-charcoal dark:text-cream hover:text-terracotta active:scale-90 focus-visible:ring-2 focus-visible:ring-terracotta transition-all duration-150"
             aria-label="Increase quantity"
           >
             +
@@ -75,7 +76,7 @@ export default function AddToCart({ product }: AddToCartProps) {
       </div>
       <button
         onClick={handleAddToCart}
-        className={`w-full py-3 text-sm font-medium tracking-wide transition-all duration-200 active:scale-[0.97] ${
+        className={`w-full py-3 text-sm font-medium tracking-wide transition-all duration-200 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 ${
           added
             ? 'bg-charcoal text-cream'
             : 'bg-terracotta text-white hover:bg-terracotta-dark'

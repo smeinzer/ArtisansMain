@@ -114,7 +114,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="bg-terracotta text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-terracotta-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="bg-terracotta text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-terracotta-dark active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100"
               >
                 <span className="relative z-10">
                   {submitting ? 'Sending...' : 'Send Message'}

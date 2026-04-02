@@ -45,9 +45,10 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-cream/70 hover:text-terracotta-light transition-colors duration-200"
+                    className="group relative text-sm text-cream/80 hover:text-terracotta-light transition-colors duration-200 inline-block"
                   >
                     {label}
+                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-terracotta-light/50 group-hover:w-full transition-all duration-300 ease-out" />
                   </Link>
                 </li>
               ))}
@@ -84,9 +85,10 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Follow us on ${label}`}
-                  className="text-sm text-cream/70 hover:text-terracotta-light transition-colors duration-200"
+                  className="group relative text-sm text-cream/80 hover:text-terracotta-light transition-colors duration-200 inline-block"
                 >
                   {label}
+                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-terracotta-light/50 group-hover:w-full transition-all duration-300 ease-out" />
                 </a>
               ))}
             </div>

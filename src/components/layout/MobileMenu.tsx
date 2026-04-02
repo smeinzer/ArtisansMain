@@ -71,6 +71,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       setAnimateLinks(false);
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
+      // Return focus to the trigger button
+      document.getElementById('mobile-menu-trigger')?.focus();
     }
   }, [isOpen, handleKeyDown]);
 

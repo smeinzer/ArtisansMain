@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: 'Our Artists',
   description:
     'Meet the artists of Artisans On Main. Every piece in our Weaverville, NC gallery is handcrafted by makers rooted in Western North Carolina.',
+  openGraph: {
+    title: 'Our Artists — Artisans On Main',
+    description:
+      'Meet the painters, ceramicists, jewelers, and craftspeople whose handcrafted work fills our Weaverville, NC gallery.',
+  },
 };
 
 export default function ArtistsPage() {

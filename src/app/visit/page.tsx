@@ -6,7 +6,12 @@ import SplitText from '@/components/ui/SplitText';
 export const metadata: Metadata = {
   title: 'Visit Us',
   description:
-    'Plan your visit to Artisans On Main at 18 N Main St, Weaverville, NC. Open Tuesday through Sunday.',
+    'Plan your visit to Artisans On Main at 18 N Main St, Weaverville, NC. Gallery hours, directions, and parking info. Open Tuesday through Sunday.',
+  openGraph: {
+    title: 'Visit Us — Artisans On Main',
+    description:
+      'Find us at 18 N Main St in downtown Weaverville, NC. Gallery hours, directions from Asheville, and free parking info.',
+  },
 };
 
 export default function VisitPage() {
@@ -32,7 +37,8 @@ export default function VisitPage() {
             {/* Google Map embed */}
             <div className="relative aspect-[4/3] bg-cream-dark dark:bg-dark-surface overflow-hidden">
               <iframe
-                title="Artisans On Main location"
+                title="Artisans On Main location on Google Maps"
+                aria-label="Interactive map showing the location of Artisans On Main at 18 N Main St, Weaverville, NC"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.5!2d-82.5607!3d35.6971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQxJzQ5LjYiTiA4MsKwMzMnMzguNSJX!5e0!3m2!1sen!2sus!4v1700000000000"
                 width="100%"
                 height="100%"
