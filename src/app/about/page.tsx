@@ -4,6 +4,7 @@ import Link from 'next/link';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 import ImageReveal from '@/components/ui/ImageReveal';
 import SplitText from '@/components/ui/SplitText';
+import ParallaxGridItem from '@/components/ui/ParallaxGrid';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -29,10 +30,10 @@ export default function AboutPage() {
         </p>
       </div>
 
-      {/* Photo grid */}
-      <AnimateOnScroll>
-        <div className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          <ImageReveal direction="left" delay={0} className="relative aspect-[3/4] col-span-1 row-span-2 bg-cream-dark">
+      {/* Photo grid with staggered parallax */}
+      <div className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 overflow-hidden">
+        <ParallaxGridItem speed={0.03} className="col-span-1 row-span-2">
+          <ImageReveal direction="left" delay={0} className="relative aspect-[3/4] bg-cream-dark">
             <Image
               src="https://picsum.photos/seed/about-gallery-1/600/800"
               alt="Gallery interior showing paintings on display"
@@ -42,6 +43,9 @@ export default function AboutPage() {
               priority
             />
           </ImageReveal>
+        </ParallaxGridItem>
+
+        <ParallaxGridItem speed={0.06}>
           <ImageReveal direction="right" delay={150} className="relative aspect-square bg-cream-dark">
             <Image
               src="https://picsum.photos/seed/about-gallery-2/600/600"
@@ -51,7 +55,10 @@ export default function AboutPage() {
               sizes="(max-width: 768px) 50vw, 33vw"
             />
           </ImageReveal>
-          <ImageReveal direction="up" delay={300} className="relative aspect-square bg-cream-dark hidden md:block">
+        </ParallaxGridItem>
+
+        <ParallaxGridItem speed={0.04} className="hidden md:block">
+          <ImageReveal direction="up" delay={300} className="relative aspect-square bg-cream-dark">
             <Image
               src="https://picsum.photos/seed/about-gallery-3/600/600"
               alt="Artist working at their studio bench"
@@ -60,6 +67,9 @@ export default function AboutPage() {
               sizes="33vw"
             />
           </ImageReveal>
+        </ParallaxGridItem>
+
+        <ParallaxGridItem speed={0.07}>
           <div className="relative aspect-square overflow-hidden bg-cream-dark">
             <Image
               src="https://picsum.photos/seed/about-gallery-4/600/600"
@@ -69,7 +79,10 @@ export default function AboutPage() {
               sizes="(max-width: 768px) 50vw, 33vw"
             />
           </div>
-          <div className="relative aspect-square overflow-hidden bg-cream-dark hidden md:block">
+        </ParallaxGridItem>
+
+        <ParallaxGridItem speed={0.05} className="hidden md:block">
+          <div className="relative aspect-square overflow-hidden bg-cream-dark">
             <Image
               src="https://picsum.photos/seed/about-gallery-5/600/600"
               alt="Gallery opening event with visitors"
@@ -78,8 +91,8 @@ export default function AboutPage() {
               sizes="33vw"
             />
           </div>
-        </div>
-      </AnimateOnScroll>
+        </ParallaxGridItem>
+      </div>
 
       {/* Story sections */}
       <div className="mt-16 md:mt-24 max-w-3xl space-y-12">

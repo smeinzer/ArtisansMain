@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import MobileMenu from './MobileMenu';
@@ -18,29 +18,58 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { itemCount, openSlideOut } = useCart();
   const [scrolled, setScrolled] = useState(false);
+  const [inverted, setInverted] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const rafId = useRef(0);
+
+  const checkDarkSections = useCallback(() => {
+    if (!headerRef.current) return;
+    const headerRect = headerRef.current.getBoundingClientRect();
+    const headerMid = headerRect.top + headerRect.height / 2;
+
+    // Check if header overlaps any dark-section element
+    const darkSections = document.querySelectorAll('[data-theme="dark"]');
+    let overDark = false;
+    darkSections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (headerMid >= rect.top && headerMid <= rect.bottom) {
+        overDark = true;
+      }
+    });
+    setInverted(overDark);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       cancelAnimationFrame(rafId.current);
       rafId.current = requestAnimationFrame(() => {
         setScrolled(window.scrollY > 50);
+        checkDarkSections();
       });
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(rafId.current);
     };
-  }, []);
+  }, [checkDarkSections]);
+
+  const textColor = inverted ? 'text-cream' : 'text-charcoal';
+  const hoverColor = inverted ? 'hover:text-terracotta-light' : 'hover:text-terracotta';
 
   return (
     <>
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? 'bg-cream/80 backdrop-blur-md shadow-sm border-b border-transparent'
-            : 'bg-cream border-b border-border'
+        ref={headerRef}
+        className={`sticky top-0 z-40 transition-all duration-500 ${
+          inverted
+            ? scrolled
+              ? 'bg-charcoal/80 backdrop-blur-md shadow-sm border-b border-transparent'
+              : 'bg-transparent border-b border-transparent'
+            : scrolled
+              ? 'bg-cream/80 backdrop-blur-md shadow-sm border-b border-transparent'
+              : 'bg-cream border-b border-border'
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -48,7 +77,7 @@ export default function Header() {
             {/* Logo / Business name */}
             <Link
               href="/"
-              className="font-serif text-xl sm:text-2xl text-charcoal tracking-tight hover:text-terracotta transition-colors duration-200"
+              className={`font-serif text-xl sm:text-2xl tracking-tight transition-colors duration-500 ${textColor} ${hoverColor}`}
             >
               Artisans On Main
             </Link>
@@ -59,9 +88,11 @@ export default function Header() {
                 <Link
                   key={href}
                   href={href}
-                  className="text-sm font-medium tracking-wide text-charcoal hover:text-terracotta transition-colors"
+                  className={`group relative text-sm font-medium tracking-wide transition-colors duration-500 ${textColor} ${hoverColor}`}
                 >
                   {label}
+                  {/* Animated underline */}
+                  <span className={`absolute -bottom-1 left-0 h-[1.5px] w-0 group-hover:w-full transition-all duration-300 ease-out ${inverted ? 'bg-terracotta-light' : 'bg-terracotta'}`} />
                 </Link>
               ))}
             </nav>
@@ -72,7 +103,7 @@ export default function Header() {
               <button
                 onClick={openSlideOut}
                 aria-label={`Shopping cart, ${itemCount} items`}
-                className="relative text-charcoal hover:text-terracotta transition-colors duration-200 p-1"
+                className={`relative transition-colors duration-500 p-1 ${textColor} ${hoverColor}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +130,7 @@ export default function Header() {
 
               {/* Mobile hamburger */}
               <button
-                className="md:hidden text-charcoal hover:text-terracotta transition-colors duration-200 p-1"
+                className={`md:hidden transition-colors duration-500 p-1 ${textColor} ${hoverColor}`}
                 onClick={() => setMobileMenuOpen(true)}
                 aria-label="Open menu"
                 aria-expanded={mobileMenuOpen}

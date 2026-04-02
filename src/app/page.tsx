@@ -3,6 +3,7 @@ import Hero from '@/components/home/Hero';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
 import HorizontalGallery from '@/components/home/HorizontalGallery';
 import ImpactStats from '@/components/home/ImpactStats';
+import ArtistQuotes from '@/components/home/ArtistQuotes';
 import Announcements from '@/components/home/Announcements';
 import Marquee from '@/components/ui/Marquee';
 import VisitTeaser from '@/components/home/VisitTeaser';
@@ -50,6 +51,7 @@ export default async function HomePage() {
       />
       <HorizontalGallery />
       <ImpactStats />
+      <ArtistQuotes />
       <Announcements />
       <VisitTeaser />
     </>

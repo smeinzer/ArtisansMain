@@ -10,6 +10,7 @@ import SmoothScroll from '@/components/ui/SmoothScroll';
 import FilmGrain from '@/components/ui/FilmGrain';
 import CustomCursor from '@/components/ui/CustomCursor';
 import Preloader from '@/components/ui/Preloader';
+import BackToTop from '@/components/ui/BackToTop';
 import './globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -147,6 +148,7 @@ export default function RootLayout({
                 <PageTransition>{children}</PageTransition>
               </main>
             </div>
+            <BackToTop />
             {/* Footer is revealed as you scroll past the content */}
             <Footer />
             </ToastProvider>

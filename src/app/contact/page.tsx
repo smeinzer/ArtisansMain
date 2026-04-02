@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { demoSiteSettings } from '@/lib/demo';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
 import SplitText from '@/components/ui/SplitText';
+import { FloatingInput, FloatingTextarea, FloatingSelect } from '@/components/ui/FloatingInput';
 
 export default function ContactPage() {
   const { phone, email, address, socialLinks } = demoSiteSettings;
@@ -71,96 +72,53 @@ export default function ContactPage() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-charcoal mb-1.5"
-                  >
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    aria-required="true"
-                    className="w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal placeholder:text-warm-gray-light focus:outline-none focus:border-terracotta transition-colors"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-charcoal mb-1.5"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    aria-required="true"
-                    className="w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal placeholder:text-warm-gray-light focus:outline-none focus:border-terracotta transition-colors"
-                    placeholder="your@email.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="subject"
-                  className="block text-sm font-medium text-charcoal mb-1.5"
-                >
-                  Subject
-                </label>
-                <select
-                  id="subject"
-                  name="subject"
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid sm:grid-cols-2 gap-8">
+                <FloatingInput
+                  id="name"
+                  name="name"
+                  label="Name"
                   required
-                  aria-required="true"
-                  className="w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors"
-                  defaultValue=""
-                >
-                  <option value="" disabled>
-                    Select a subject
-                  </option>
-                  <option value="General Inquiry">General Inquiry</option>
-                  <option value="About a Piece">Question About a Piece</option>
-                  <option value="Consignment">
-                    Consignment / Artist Application
-                  </option>
-                  <option value="Events">Events &amp; Gallery Openings</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-charcoal mb-1.5"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
+                />
+                <FloatingInput
+                  id="email"
+                  name="email"
+                  label="Email"
+                  type="email"
                   required
-                  aria-required="true"
-                  rows={6}
-                  className="w-full border border-border bg-white px-4 py-2.5 text-sm text-charcoal placeholder:text-warm-gray-light focus:outline-none focus:border-terracotta transition-colors resize-y"
-                  placeholder="How can we help?"
                 />
               </div>
+
+              <FloatingSelect
+                id="subject"
+                name="subject"
+                label="Subject"
+                required
+                options={[
+                  { value: 'General Inquiry', label: 'General Inquiry' },
+                  { value: 'About a Piece', label: 'Question About a Piece' },
+                  { value: 'Consignment', label: 'Consignment / Artist Application' },
+                  { value: 'Events', label: 'Events & Gallery Openings' },
+                  { value: 'Other', label: 'Other' },
+                ]}
+              />
+
+              <FloatingTextarea
+                id="message"
+                name="message"
+                label="Message"
+                rows={5}
+                required
+              />
 
               <button
                 type="submit"
                 disabled={submitting}
-                className="bg-terracotta text-white px-10 py-3 tracking-wide hover:bg-terracotta-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="relative overflow-hidden bg-terracotta text-white px-10 py-3 tracking-wide hover:bg-terracotta-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed group"
               >
-                {submitting ? 'Sending...' : 'Send Message'}
+                <span className="relative z-10">
+                  {submitting ? 'Sending...' : 'Send Message'}
+                </span>
               </button>
             </form>
           )}

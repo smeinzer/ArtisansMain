@@ -57,6 +57,7 @@ export default function HorizontalGallery() {
   return (
     <section
       ref={sectionRef}
+      data-theme="dark"
       className="relative bg-charcoal"
       // Height creates scroll distance for the horizontal movement
       style={{ height: '300vh' }}

@@ -8,7 +8,7 @@ export default function VisitTeaser() {
   const openDays = demoSiteSettings.hours.filter((h) => h.open !== null);
 
   return (
-    <section className="py-20 md:py-32 px-6 bg-charcoal text-cream relative overflow-hidden">
+    <section data-theme="dark" className="py-20 md:py-32 px-6 bg-charcoal text-cream relative overflow-hidden">
       {/* Subtle background texture */}
       <div
         className="absolute inset-0 opacity-[0.03]"
