@@ -9,8 +9,8 @@ const quickLinks = [
 ] as const;
 
 const socialLinks = [
-  { href: 'https://instagram.com', label: 'Instagram' },
-  { href: 'https://facebook.com', label: 'Facebook' },
+  { href: 'https://www.instagram.com/artisansonmain/', label: 'Instagram' },
+  { href: 'https://www.facebook.com/artisansonmain.nc/', label: 'Facebook' },
 ] as const;
 
 export default function Footer() {

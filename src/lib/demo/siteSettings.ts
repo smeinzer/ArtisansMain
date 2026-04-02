@@ -37,11 +37,11 @@ export const demoSiteSettings: DemoSiteSettings = {
   socialLinks: [
     {
       platform: "instagram",
-      url: "https://www.instagram.com/artisansonmain",
+      url: "https://www.instagram.com/artisansonmain/",
     },
     {
       platform: "facebook",
-      url: "https://www.facebook.com/artisansonmain",
+      url: "https://www.facebook.com/artisansonmain.nc/",
     },
   ],
 };
