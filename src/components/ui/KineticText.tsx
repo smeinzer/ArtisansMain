@@ -18,6 +18,10 @@ interface KineticTextProps {
   duration?: number;
 }
 
+// Easing curves
+const EASE_FOLLOW = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'; // Responsive follow
+const EASE_SETTLE = 'cubic-bezier(0.16, 1, 0.3, 1)';         // Soft overshoot settle
+
 /**
  * Variable-font kinetic typography.
  *
@@ -25,8 +29,9 @@ interface KineticTextProps {
  * cursor smoothly shift font-weight via direct DOM manipulation (no React
  * re-renders), creating a liquid ripple that follows the pointer at 60fps.
  *
- * Requires variable fonts with a `wght` axis (Cormorant Garamond 300-700,
- * DM Sans 100-1000).
+ * On mouse leave, weights ripple back to rest with a staggered delay
+ * radiating outward from the last cursor position, so it dissolves
+ * organically instead of snapping.
  */
 export default function KineticText({
   text,
@@ -40,7 +45,7 @@ export default function KineticText({
 }: KineticTextProps) {
   const containerRef = useRef<HTMLElement>(null);
   const rafId = useRef(0);
-  const isHovering = useRef(false);
+  const lastMouseX = useRef(0);
 
   const chars = text.split('');
 
@@ -48,22 +53,27 @@ export default function KineticText({
     const container = containerRef.current;
     if (!container) return;
 
-    // Only enable on hover-capable devices
     const hoverQuery = window.matchMedia('(hover: hover)');
     if (!hoverQuery.matches) return;
 
     const charEls = container.querySelectorAll<HTMLSpanElement>('[data-kinetic-char]');
     if (charEls.length === 0) return;
 
-    // Set initial transition on all chars
+    const settleDuration = duration * 2.5;   // Slower settle
+    const staggerPerChar = 30;               // ms between each char's settle start
+
+    // Set initial styles
     charEls.forEach((el) => {
-      el.style.transition = `font-weight ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+      el.style.transition = `font-weight ${duration}ms ${EASE_FOLLOW}`;
       el.style.fontWeight = String(weightFrom);
       el.style.display = 'inline-block';
     });
 
     function applyWeights(mouseX: number) {
       charEls.forEach((el) => {
+        // Switch to quick follow easing while hovering
+        el.style.transition = `font-weight ${duration}ms ${EASE_FOLLOW}`;
+
         const rect = el.getBoundingClientRect();
         const charCenterX = rect.left + rect.width / 2;
         const distance = Math.abs(mouseX - charCenterX);
@@ -75,7 +85,6 @@ export default function KineticText({
           return;
         }
 
-        // Cosine falloff for organic feel
         const t = 1 - normalizedDistance / radius;
         const easedT = (Math.cos(Math.PI * (1 - t)) + 1) / 2;
         const weight = Math.round(weightFrom + (weightTo - weightFrom) * easedT);
@@ -83,15 +92,32 @@ export default function KineticText({
       });
     }
 
-    function resetWeights() {
+    function settleWeights() {
+      // Sort characters by distance from last cursor position
+      // so the ripple radiates outward from where the cursor left
+      const charData: { el: HTMLSpanElement; dist: number }[] = [];
+
       charEls.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const charCenterX = rect.left + rect.width / 2;
+        const dist = Math.abs(lastMouseX.current - charCenterX);
+        charData.push({ el, dist });
+      });
+
+      // Sort by distance — closest to cursor settle first
+      charData.sort((a, b) => a.dist - b.dist);
+
+      charData.forEach(({ el }, i) => {
+        const delay = i * staggerPerChar;
+        // Switch to the slow, soft settle easing with staggered delay
+        el.style.transition = `font-weight ${settleDuration}ms ${EASE_SETTLE} ${delay}ms`;
         el.style.fontWeight = String(weightFrom);
       });
     }
 
     function handleMouseMove(e: MouseEvent) {
-      // Extract clientX synchronously before RAF
       const mouseX = e.clientX;
+      lastMouseX.current = mouseX;
       cancelAnimationFrame(rafId.current);
       rafId.current = requestAnimationFrame(() => {
         applyWeights(mouseX);
@@ -99,16 +125,14 @@ export default function KineticText({
     }
 
     function handleMouseEnter() {
-      isHovering.current = true;
       if (trackingShift && container) {
         container.style.letterSpacing = '0.02em';
       }
     }
 
     function handleMouseLeave() {
-      isHovering.current = false;
       cancelAnimationFrame(rafId.current);
-      resetWeights();
+      settleWeights();
       if (trackingShift && container) {
         container.style.letterSpacing = '';
       }
@@ -134,7 +158,7 @@ export default function KineticText({
       style={{
         fontWeight: weightFrom,
         transition: trackingShift
-          ? `letter-spacing ${duration * 2}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+          ? `letter-spacing ${duration * 2}ms ${EASE_SETTLE}`
           : undefined,
       }}
     >
