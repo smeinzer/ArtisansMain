@@ -72,6 +72,7 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
       role="dialog"
       aria-modal="true"
       aria-label="Image lightbox"
+      data-lightbox
     >
       {/* Backdrop */}
       <div

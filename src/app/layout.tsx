@@ -7,6 +7,8 @@ import Footer from '@/components/layout/Footer';
 import PageTransition from '@/components/ui/PageTransition';
 import ScrollProgress from '@/components/ui/ScrollProgress';
 import SmoothScroll from '@/components/ui/SmoothScroll';
+import FilmGrain from '@/components/ui/FilmGrain';
+import CustomCursor from '@/components/ui/CustomCursor';
 import './globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -126,6 +128,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <SmoothScroll>
+          <CustomCursor />
           <CartProvider>
             <ToastProvider>
             <a
@@ -143,6 +146,7 @@ export default function RootLayout({
             </ToastProvider>
           </CartProvider>
         </SmoothScroll>
+        <FilmGrain />
       </body>
     </html>
   );

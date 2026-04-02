@@ -19,6 +19,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
         type="button"
         onClick={() => setLightboxOpen(true)}
         aria-label="Open image in lightbox"
+        data-cursor="view"
         className="relative aspect-[4/5] w-full overflow-hidden bg-cream-dark cursor-zoom-in"
       >
         {images.map((src, i) => (

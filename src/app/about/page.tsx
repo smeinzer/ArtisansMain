@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
+import ImageReveal from '@/components/ui/ImageReveal';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -28,7 +29,7 @@ export default function AboutPage() {
       {/* Photo grid */}
       <AnimateOnScroll>
         <div className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          <div className="relative aspect-[3/4] col-span-1 row-span-2 overflow-hidden bg-cream-dark">
+          <ImageReveal direction="left" delay={0} className="relative aspect-[3/4] col-span-1 row-span-2 bg-cream-dark">
             <Image
               src="https://picsum.photos/seed/about-gallery-1/600/800"
               alt="Gallery interior showing paintings on display"
@@ -37,8 +38,8 @@ export default function AboutPage() {
               sizes="(max-width: 768px) 50vw, 33vw"
               priority
             />
-          </div>
-          <div className="relative aspect-square overflow-hidden bg-cream-dark">
+          </ImageReveal>
+          <ImageReveal direction="right" delay={150} className="relative aspect-square bg-cream-dark">
             <Image
               src="https://picsum.photos/seed/about-gallery-2/600/600"
               alt="Close-up of handcrafted ceramics on a shelf"
@@ -46,8 +47,8 @@ export default function AboutPage() {
               className="object-cover"
               sizes="(max-width: 768px) 50vw, 33vw"
             />
-          </div>
-          <div className="relative aspect-square overflow-hidden bg-cream-dark hidden md:block">
+          </ImageReveal>
+          <ImageReveal direction="up" delay={300} className="relative aspect-square bg-cream-dark hidden md:block">
             <Image
               src="https://picsum.photos/seed/about-gallery-3/600/600"
               alt="Artist working at their studio bench"
@@ -55,7 +56,7 @@ export default function AboutPage() {
               className="object-cover"
               sizes="33vw"
             />
-          </div>
+          </ImageReveal>
           <div className="relative aspect-square overflow-hidden bg-cream-dark">
             <Image
               src="https://picsum.photos/seed/about-gallery-4/600/600"

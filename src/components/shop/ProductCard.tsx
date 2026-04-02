@@ -16,7 +16,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       className="group block"
     >
       <TiltCard className="hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-        <div className="relative aspect-[4/5] overflow-hidden bg-cream-dark">
+        <div className="relative aspect-[4/5] overflow-hidden bg-cream-dark" data-cursor="view">
           {/* Primary image */}
           <Image
             src={product.images[0]}
