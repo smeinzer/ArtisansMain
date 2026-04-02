@@ -34,7 +34,7 @@ export default function Hero({ imageUrl, headline, subline }: HeroProps) {
           <TextReveal
             text={headline || DEFAULTS.headline}
             as="h1"
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight leading-[1.1]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-white tracking-tight leading-[1.05]"
             trigger="onMount"
             delay={200}
             staggerDelay={60}

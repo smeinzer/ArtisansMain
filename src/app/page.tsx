@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/home/Hero';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
+import FullBleedArtwork from '@/components/home/FullBleedArtwork';
+import ArtistSpotlight from '@/components/home/ArtistSpotlight';
+import MissionStatement from '@/components/home/MissionStatement';
 import HorizontalGallery from '@/components/home/HorizontalGallery';
 import ImpactStats from '@/components/home/ImpactStats';
 import ArtistQuotes from '@/components/home/ArtistQuotes';
@@ -46,9 +49,12 @@ export default async function HomePage() {
         subline={heroSubline}
       />
       <FeaturedProducts />
+      <FullBleedArtwork />
       <Marquee
         items={['Paintings', 'Ceramics', 'Jewelry', 'Textiles', 'Sculpture', 'Photography', 'Mixed Media']}
       />
+      <ArtistSpotlight />
+      <MissionStatement />
       <HorizontalGallery />
       <ImpactStats />
       <Announcements />
