@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useCallback, useState } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -16,51 +16,49 @@ export default function MagneticButton({
   as: Tag = 'div',
 }: MagneticButtonProps) {
   const ref = useRef<HTMLElement>(null);
-  const [hasHover, setHasHover] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const rafId = useRef(0);
+  const hasHover = useRef(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
-      setHasHover(true);
+      hasHover.current = true;
     }
   }, []);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const dx = (e.clientX - centerX) * strength;
-      const dy = (e.clientY - centerY) * strength;
-      setOffset({ x: dx, y: dy });
-      setIsHovering(true);
+      if (!ref.current || !hasHover.current) return;
+      cancelAnimationFrame(rafId.current);
+      rafId.current = requestAnimationFrame(() => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const dx = (e.clientX - centerX) * strength;
+        const dy = (e.clientY - centerY) * strength;
+        ref.current.style.transform = `translate(${dx}px, ${dy}px)`;
+        ref.current.style.transition = 'transform 0.15s ease-out';
+      });
     },
     [strength],
   );
 
   const handleMouseLeave = useCallback(() => {
-    setOffset({ x: 0, y: 0 });
-    setIsHovering(false);
+    cancelAnimationFrame(rafId.current);
+    if (!ref.current) return;
+    ref.current.style.transform = 'translate(0px, 0px)';
+    ref.current.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
   }, []);
 
-  if (!hasHover) {
-    return <Tag className={className}>{children}</Tag>;
-  }
+  useEffect(() => {
+    return () => cancelAnimationFrame(rafId.current);
+  }, []);
 
   return (
     <Tag
       ref={ref as React.RefObject<HTMLDivElement> & React.RefObject<HTMLSpanElement>}
       className={className}
-      style={{
-        display: 'inline-block',
-        transform: `translate(${offset.x}px, ${offset.y}px)`,
-        transition: isHovering
-          ? 'transform 0.1s ease-out'
-          : 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-        willChange: isHovering ? 'transform' : 'auto',
-      }}
+      style={{ display: 'inline-block', willChange: 'transform' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
