@@ -5,6 +5,7 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import ProductCard from '@/components/shop/ProductCard';
 import SectionHeading from '@/components/ui/SectionHeading';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
+import KineticText from '@/components/ui/KineticText';
 
 interface ArtistPageProps {
   params: Promise<{ slug: string }>;
@@ -64,8 +65,16 @@ export default async function ArtistPage({ params }: ArtistPageProps) {
 
         {/* Bio and links */}
         <div className="flex flex-col gap-5">
-          <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-medium text-charcoal leading-tight">
-            {artist.name}
+          <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-charcoal dark:text-dark-text leading-tight">
+            <KineticText
+              text={artist.name}
+              as="span"
+              weightFrom={400}
+              weightTo={700}
+              radius={5}
+              trackingShift
+              duration={350}
+            />
           </h1>
 
           <p className="text-warm-gray leading-relaxed text-base md:text-lg">

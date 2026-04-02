@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import ArtworkReveal from '@/components/ui/ArtworkReveal';
 import { demoProducts } from '@/lib/demo';
 
 // Pick the most visually striking piece as the showstopper
@@ -48,20 +49,22 @@ export default function FullBleedArtwork() {
       data-theme="dark"
       className="relative h-[85vh] min-h-[500px] max-h-[900px] overflow-hidden"
     >
-      {/* Full-bleed artwork image */}
-      <div
-        className="absolute inset-0 will-change-transform"
-        style={{ transform: `scale(${imageScale})` }}
-      >
-        <Image
-          src={featured.images[0]}
-          alt={featured.title}
-          fill
-          className="object-cover"
-          sizes="100vw"
-          quality={90}
-        />
-      </div>
+      {/* Full-bleed artwork image with signature reveal */}
+      <ArtworkReveal className="absolute inset-0" direction="horizontal">
+        <div
+          className="absolute inset-0 will-change-transform"
+          style={{ transform: `scale(${imageScale})` }}
+        >
+          <Image
+            src={featured.images[0]}
+            alt={featured.title}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            quality={90}
+          />
+        </div>
+      </ArtworkReveal>
 
       {/* Gradient overlay — heavier at bottom for text legibility */}
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent" />

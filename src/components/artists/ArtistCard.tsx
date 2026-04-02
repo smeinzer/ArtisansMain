@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { DemoArtist } from '@/lib/demo';
 import ImageReveal from '@/components/ui/ImageReveal';
+import KineticText from '@/components/ui/KineticText';
 
 interface ArtistCardProps {
   artist: DemoArtist;
@@ -26,8 +27,14 @@ export default function ArtistCard({ artist }: ArtistCardProps) {
         </div>
       </ImageReveal>
       <div className="mt-4">
-        <h3 className="font-serif text-xl font-medium text-charcoal dark:text-dark-text group-hover:text-terracotta transition-colors duration-200">
-          {artist.name}
+        <h3 className="font-serif text-xl text-charcoal dark:text-dark-text group-hover:text-terracotta transition-colors duration-200">
+          <KineticText
+            text={artist.name}
+            weightFrom={500}
+            weightTo={700}
+            radius={3}
+            duration={250}
+          />
         </h3>
         <p className="mt-1.5 text-sm text-warm-gray line-clamp-2 leading-relaxed">
           {artist.bio}

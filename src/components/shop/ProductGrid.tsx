@@ -56,7 +56,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
   return (
     <div
       ref={gridRef}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 stagger-grid"
     >
       {products.map((product, i) => {
         // Every 5th item (index 0, 5, 10...) is a featured bento card

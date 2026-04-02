@@ -17,14 +17,14 @@ import './globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: 'variable',
   variable: '--font-cormorant-garamond',
   display: 'swap',
 });
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: 'variable',
   variable: '--font-dm-sans',
   display: 'swap',
 });
@@ -146,7 +146,7 @@ export default function RootLayout({
             </a>
             <ScrollProgress />
             {/* Main content wrapper sits above the fixed footer */}
-            <div className="relative z-10 bg-cream dark:bg-dark-bg flex flex-col min-h-screen shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] transition-colors duration-400">
+            <div className="relative z-10 bg-cream dark:bg-dark-bg flex flex-col min-h-screen shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] transition-colors duration-400 scroll-state-container">
               <Header />
               <main id="main-content" className="flex-1">
                 <PageTransition>{children}</PageTransition>

@@ -286,3 +286,148 @@ html {
     cursor: none !important;
   }
 }
+
+/* ========================================
+   2026 CSS FEATURES
+   ======================================== */
+
+/* 1. Squircle corners — smoother Apple-style continuous curves */
+@supports (corner-shape: squircle) {
+  .squircle {
+    corner-shape: squircle;
+    border-radius: 12px;
+  }
+  .squircle-sm {
+    corner-shape: squircle;
+    border-radius: 8px;
+  }
+  .squircle-lg {
+    corner-shape: squircle;
+    border-radius: 20px;
+  }
+}
+
+/* Fallback: regular rounded corners when squircle isn't supported */
+.squircle { border-radius: 12px; }
+.squircle-sm { border-radius: 8px; }
+.squircle-lg { border-radius: 20px; }
+
+/* 2. Text-box trimming — precise typographic alignment */
+@supports (text-box: trim-both cap alphabetic) {
+  h1, h2, h3, h4, h5, h6 {
+    text-box: trim-both cap alphabetic;
+  }
+  .text-box-trim {
+    text-box: trim-both cap alphabetic;
+  }
+}
+
+/* 3. Sibling-index staggered animations — CSS-native stagger */
+@supports (transition-delay: calc(sibling-index() * 1ms)) {
+  .stagger-grid > * {
+    transition-delay: calc((sibling-index() - 1) * 80ms) !important;
+  }
+  .stagger-gallery > * {
+    transition-delay: calc((sibling-index() - 1) * 60ms) !important;
+  }
+  .stagger-fast > * {
+    transition-delay: calc((sibling-index() - 1) * 40ms) !important;
+  }
+}
+
+/* 4. Scroll state container queries — JS-free stuck detection */
+@supports (container-type: scroll-state) {
+  .scroll-state-container {
+    container-type: scroll-state;
+    container-name: page-scroll;
+  }
+
+  @container page-scroll scroll-state(stuck: top) {
+    .scroll-state-target {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08);
+      border-bottom-color: transparent !important;
+    }
+  }
+}
+
+/* 5. Signature motion language — branded artwork reveal */
+@keyframes artwork-curtain-in {
+  0% { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes artwork-content-settle {
+  0% { transform: scale(1.06); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes artwork-curtain-vertical {
+  0% { clip-path: inset(100% 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+.artwork-reveal {
+  clip-path: inset(0 100% 0 0);
+  overflow: hidden;
+}
+
+.artwork-reveal-vertical {
+  clip-path: inset(100% 0 0 0);
+  overflow: hidden;
+}
+
+.artwork-reveal.is-revealed {
+  animation: artwork-curtain-in 0.9s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+.artwork-reveal-vertical.is-revealed {
+  animation: artwork-curtain-vertical 0.9s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+.artwork-reveal.is-revealed > *,
+.artwork-reveal-vertical.is-revealed > * {
+  animation: artwork-content-settle 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
+}
+
+/* Signature hover lift — consistent across all artwork containers */
+.artwork-hover {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.artwork-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -8px rgb(0 0 0 / 0.12);
+}
+
+/* ========================================
+   VARIABLE FONT KINETIC TYPOGRAPHY
+   ======================================== */
+
+/* Kinetic text container — ensure font-variation-settings are inherited */
+.kinetic-text {
+  font-variation-settings: 'wght' var(--kinetic-weight, 400);
+}
+
+/* Section heading letter-spacing animation on scroll */
+@keyframes heading-tracking-tighten {
+  from { letter-spacing: 0.06em; opacity: 0.7; }
+  to { letter-spacing: -0.01em; opacity: 1; }
+}
+
+@supports (animation-timeline: view()) {
+  .heading-kinetic {
+    animation: heading-tracking-tighten linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+}
+
+/* Fallback for browsers without scroll-driven animations */
+@supports not (animation-timeline: view()) {
+  .heading-kinetic {
+    letter-spacing: -0.01em;
+  }
+}

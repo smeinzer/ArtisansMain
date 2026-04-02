@@ -76,7 +76,7 @@ export default function HorizontalGallery() {
         {/* Horizontal track */}
         <div
           ref={trackRef}
-          className="flex gap-6 md:gap-8 px-6 md:px-12 will-change-transform"
+          className="flex gap-6 md:gap-8 px-6 md:px-12 will-change-transform stagger-fast"
         >
           {galleryItems.map((product) => (
             <Link
@@ -84,7 +84,7 @@ export default function HorizontalGallery() {
               href={`/shop/${product.handle}`}
               className="group flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px]"
             >
-              <div className="relative aspect-[3/4] overflow-hidden bg-charcoal-light">
+              <div className="relative aspect-[3/4] overflow-hidden bg-charcoal-light squircle">
                 <Image
                   src={product.images[0]}
                   alt={product.title}

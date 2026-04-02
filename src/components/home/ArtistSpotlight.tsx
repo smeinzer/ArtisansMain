@@ -3,6 +3,8 @@
 import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import ArtworkReveal from '@/components/ui/ArtworkReveal';
+import KineticText from '@/components/ui/KineticText';
 import { demoArtists, demoProducts } from '@/lib/demo';
 
 // Pick a featured artist and their works
@@ -47,8 +49,14 @@ export default function ArtistSpotlight() {
             <p className="text-xs font-sans font-semibold tracking-[0.2em] uppercase text-terracotta mb-3">
               Artist Spotlight
             </p>
-            <h2 className="font-serif text-4xl font-medium text-charcoal dark:text-dark-text tracking-tight leading-[1.1]">
-              {spotlightArtist.name}
+            <h2 className="font-serif text-4xl text-charcoal dark:text-dark-text tracking-tight leading-[1.1]">
+              <KineticText
+                text={spotlightArtist.name}
+                weightFrom={400}
+                weightTo={600}
+                radius={4}
+                trackingShift
+              />
             </h2>
             <p className="mt-4 text-warm-gray dark:text-dark-text-muted leading-relaxed text-base max-w-lg">
               {spotlightArtist.bio}
@@ -64,7 +72,7 @@ export default function ArtistSpotlight() {
             {spotlightWorks.map((work, i) => (
               <Link key={work.id} href={`/shop/${work.handle}`} className="group block">
                 <div
-                  className="relative aspect-[4/3] overflow-hidden bg-cream-dark dark:bg-dark-surface"
+                  className="relative aspect-[4/3] overflow-hidden bg-cream-dark dark:bg-dark-surface squircle"
                   style={{
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -95,8 +103,15 @@ export default function ArtistSpotlight() {
               <p className="text-xs font-sans font-semibold tracking-[0.2em] uppercase text-terracotta mb-4">
                 Artist Spotlight
               </p>
-              <h2 className="font-serif text-5xl lg:text-6xl xl:text-7xl font-medium text-charcoal dark:text-dark-text tracking-tight leading-[1.05]">
-                {spotlightArtist.name}
+              <h2 className="font-serif text-5xl lg:text-6xl xl:text-7xl text-charcoal dark:text-dark-text tracking-tight leading-[1.05]">
+                <KineticText
+                  text={spotlightArtist.name}
+                  weightFrom={400}
+                  weightTo={700}
+                  radius={5}
+                  trackingShift
+                  duration={350}
+                />
               </h2>
               <p className="mt-6 text-warm-gray dark:text-dark-text-muted leading-relaxed text-lg max-w-md">
                 {spotlightArtist.bio}
@@ -123,16 +138,18 @@ export default function ArtistSpotlight() {
           <div className="space-y-8 md:py-32">
             {spotlightWorks.map((work, i) => (
               <Link key={work.id} href={`/shop/${work.handle}`} className="group block scroll-animate">
-                <div className="relative aspect-[3/4] overflow-hidden bg-cream-dark dark:bg-dark-surface">
-                  <Image
-                    src={work.images[0]}
-                    alt={work.title}
-                    fill
-                    className="object-cover img-distort"
-                    sizes="(max-width: 1024px) 50vw, 40vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
+                <ArtworkReveal delay={i * 150} direction={i % 2 === 0 ? 'horizontal' : 'vertical'}>
+                  <div className="relative aspect-[3/4] overflow-hidden bg-cream-dark dark:bg-dark-surface squircle">
+                    <Image
+                      src={work.images[0]}
+                      alt={work.title}
+                      fill
+                      className="object-cover img-distort"
+                      sizes="(max-width: 1024px) 50vw, 40vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                </ArtworkReveal>
                 <div className="mt-4 flex items-end justify-between">
                   <div>
                     <h3 className="text-base font-medium text-charcoal dark:text-dark-text group-hover:text-terracotta transition-colors duration-200">

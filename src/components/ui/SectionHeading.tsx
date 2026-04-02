@@ -16,7 +16,7 @@ export default function SectionHeading({
       <TextReveal
         text={title}
         as="h2"
-        className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-charcoal dark:text-dark-text"
+        className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-charcoal dark:text-dark-text heading-kinetic"
         trigger="onScroll"
         staggerDelay={40}
       />

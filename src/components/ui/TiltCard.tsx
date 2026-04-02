@@ -63,7 +63,7 @@ export default function TiltCard({ children, className = '' }: TiltCardProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative ${className}`}
+      className={`relative squircle ${className}`}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
         transformStyle: 'preserve-3d',

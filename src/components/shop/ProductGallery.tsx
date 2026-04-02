@@ -53,7 +53,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
     <div>
       {/* Main image — swipeable on mobile */}
       <div
-        className="relative aspect-[4/5] w-full overflow-hidden bg-cream-dark dark:bg-dark-surface"
+        className="relative aspect-[4/5] w-full overflow-hidden bg-cream-dark dark:bg-dark-surface squircle-lg"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -111,7 +111,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
               onClick={() => setSelectedIndex(i)}
               aria-label={`View image ${i + 1} of ${images.length}`}
               aria-current={i === selectedIndex ? 'true' : undefined}
-              className={`relative shrink-0 w-16 h-20 overflow-hidden bg-cream-dark dark:bg-dark-surface border-2 transition-colors duration-200 ${
+              className={`relative shrink-0 w-16 h-20 overflow-hidden bg-cream-dark dark:bg-dark-surface squircle-sm border-2 transition-colors duration-200 ${
                 i === selectedIndex ? 'border-terracotta' : 'border-transparent'
               }`}
             >

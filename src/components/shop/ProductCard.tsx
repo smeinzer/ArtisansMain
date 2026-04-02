@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { DemoProduct } from '@/lib/demo';
 import TiltCard from '@/components/ui/TiltCard';
+import KineticText from '@/components/ui/KineticText';
 
 interface ProductCardProps {
   product: DemoProduct;
@@ -18,7 +19,7 @@ export default function ProductCard({ product, featured = false }: ProductCardPr
     >
       <TiltCard className="hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
         <div
-          className={`relative overflow-hidden bg-cream-dark dark:bg-charcoal-light/30 ${
+          className={`relative overflow-hidden bg-cream-dark dark:bg-charcoal-light/30 squircle ${
             featured ? 'aspect-[16/9] sm:aspect-[2/1] lg:aspect-[21/9]' : 'aspect-[4/5]'
           }`}
           data-cursor="view"
@@ -74,7 +75,15 @@ export default function ProductCard({ product, featured = false }: ProductCardPr
         </div>
         <div className={`mt-4 px-1 pb-1 ${featured ? 'sm:flex sm:items-end sm:justify-between sm:gap-4' : ''}`}>
           <div>
-            <p className="text-xs text-warm-gray tracking-wide">{product.artist}</p>
+            <p className="text-xs text-warm-gray tracking-wide">
+              <KineticText
+                text={product.artist}
+                weightFrom={400}
+                weightTo={600}
+                radius={3}
+                duration={200}
+              />
+            </p>
             <h3 className={`mt-1 font-medium text-charcoal dark:text-cream group-hover:text-terracotta transition-colors duration-200 leading-snug ${
               featured ? 'text-base sm:text-lg' : 'text-sm'
             }`}>

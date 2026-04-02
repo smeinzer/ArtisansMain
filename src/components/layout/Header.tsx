@@ -65,7 +65,7 @@ export default function Header() {
     <>
       <header
         ref={headerRef}
-        className={`sticky top-0 z-40 transition-all duration-500 ${
+        className={`scroll-state-target sticky top-0 z-40 transition-all duration-500 ${
           inverted
             ? scrolled
               ? 'bg-charcoal/80 backdrop-blur-md shadow-sm border-b border-transparent'
