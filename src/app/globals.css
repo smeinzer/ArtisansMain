@@ -280,9 +280,11 @@ html {
   outline-offset: 2px;
 }
 
-/* Custom cursor — hide default on hover-capable devices */
+/* Custom cursor — hide default on hover-capable devices.
+   Exclude Sanity Studio (/studio) where the custom cursor
+   component doesn't render and the native cursor is needed. */
 @media (hover: hover) {
-  * {
+  *:not([data-studio] *):not([data-studio]) {
     cursor: none !important;
   }
 }
