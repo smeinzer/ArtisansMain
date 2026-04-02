@@ -41,12 +41,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             />
           )}
 
-          {/* Hover overlay with "View" indicator */}
-          <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-300 flex items-center justify-center pointer-events-none">
-            <span className="text-white text-sm tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              View
-            </span>
-          </div>
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-colors duration-300 pointer-events-none" />
 
           {/* Sold badge */}
           {!product.available && (
@@ -55,13 +51,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
         </div>
-        <div className="mt-4 px-1 pb-1 space-y-1">
-          <h3 className="text-sm font-medium text-charcoal group-hover:text-terracotta transition-colors duration-200 leading-snug">
+        <div className="mt-4 px-1 pb-1">
+          <p className="text-xs text-warm-gray tracking-wide">{product.artist}</p>
+          <h3 className="mt-1 text-sm font-medium text-charcoal group-hover:text-terracotta transition-colors duration-200 leading-snug">
             {product.title}
           </h3>
-          <p className="text-xs text-warm-gray">{product.artist}</p>
-          <p className="text-sm text-charcoal-light">
-            ${product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          <p className="mt-2 text-base font-serif font-medium text-charcoal">
+            ${product.price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
           </p>
         </div>
       </TiltCard>

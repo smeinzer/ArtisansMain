@@ -113,7 +113,7 @@ export default function ArtistQuotes() {
   return (
     <section
       ref={sectionRef}
-      className="py-20 md:py-28 px-6 bg-cream-dark"
+      className="py-20 md:py-28 px-6 bg-cream"
     >
       <div
         className="max-w-4xl mx-auto text-center"

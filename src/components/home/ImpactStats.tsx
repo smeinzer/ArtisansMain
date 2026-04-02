@@ -75,7 +75,7 @@ export default function ImpactStats() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 px-6 bg-cream">
+    <section ref={sectionRef} className="py-20 md:py-28 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat, i) => (

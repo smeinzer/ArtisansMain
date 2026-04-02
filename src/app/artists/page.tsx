@@ -15,9 +15,9 @@ export default function ArtistsPage() {
       <SplitText
         text="Our Artists"
         as="h1"
-        className="font-serif text-4xl md:text-5xl font-medium text-charcoal mb-3"
+        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
       />
-      <p className="text-warm-gray text-base md:text-lg max-w-2xl mb-12">
+      <p className="mt-5 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed mb-12">
         Every piece in our gallery is made by hand by artists rooted in Western
         North Carolina. Get to know the makers behind the work.
       </p>

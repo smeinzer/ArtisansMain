@@ -22,7 +22,7 @@ export default function AboutPage() {
           as="h1"
           className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
         />
-        <p className="mt-6 text-warm-gray text-base md:text-lg leading-relaxed">
+        <p className="mt-5 text-warm-gray text-base md:text-lg leading-relaxed">
           Artisans On Main is a curated consignment gallery in the heart of
           downtown Weaverville, North Carolina — just minutes north of
           Asheville. We exist to connect the talented makers of Western North
@@ -161,7 +161,7 @@ export default function AboutPage() {
           <div className="pt-4">
             <Link
               href="/artists"
-              className="inline-block bg-terracotta text-white px-8 py-3 tracking-wide hover:bg-terracotta-dark transition-colors duration-200"
+              className="inline-block bg-terracotta text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-terracotta-dark transition-colors duration-200"
             >
               Meet Our Artists
             </Link>

@@ -17,48 +17,35 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="sticky bottom-0 z-0 bg-cream-dark" role="contentinfo">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-          {/* Column 1: Brand */}
-          <div>
-            <Link
-              href="/"
-              className="font-serif text-2xl text-charcoal hover:text-terracotta transition-colors duration-200"
-            >
-              Artisans On Main
-            </Link>
-            <p className="mt-3 text-sm text-warm-gray leading-relaxed max-w-xs">
-              Handcrafted art and fine goods from the heart of the Blue Ridge
-              Mountains.
-            </p>
-            <div className="mt-5 flex gap-4">
-              {socialLinks.map(({ href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Follow us on ${label}`}
-                  className="text-warm-gray hover:text-terracotta transition-colors duration-200 text-sm"
-                >
-                  {label}
-                </a>
-              ))}
-            </div>
-          </div>
+    <footer data-theme="dark" className="sticky bottom-0 z-0 bg-charcoal text-cream" role="contentinfo">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10 pt-16 pb-12 md:pt-20 md:pb-16">
+        {/* Large brand mark */}
+        <Link
+          href="/"
+          className="block font-serif text-3xl md:text-4xl text-cream hover:text-terracotta-light transition-colors duration-200 tracking-tight"
+        >
+          Artisans On Main
+        </Link>
+        <p className="mt-3 text-sm text-warm-gray leading-relaxed max-w-sm">
+          Handcrafted art and fine goods from the heart of the Blue Ridge
+          Mountains.
+        </p>
 
-          {/* Column 2: Quick links */}
+        {/* Divider */}
+        <div className="mt-10 mb-10 h-px bg-cream/10" />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12">
+          {/* Column 1: Quick links */}
           <div>
-            <h3 className="text-sm font-sans font-semibold tracking-wide uppercase text-charcoal mb-4">
-              Quick Links
+            <h3 className="text-xs font-sans font-semibold tracking-[0.15em] uppercase text-cream/50 mb-4">
+              Explore
             </h3>
             <ul className="space-y-2.5">
               {quickLinks.map(({ href, label }) => (
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-warm-gray hover:text-terracotta transition-colors duration-200"
+                    className="text-sm text-cream/70 hover:text-terracotta-light transition-colors duration-200"
                   >
                     {label}
                   </Link>
@@ -67,29 +54,50 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Hours & Address */}
+          {/* Column 2: Hours & Address */}
           <div>
-            <h3 className="text-sm font-sans font-semibold tracking-wide uppercase text-charcoal mb-4">
+            <h3 className="text-xs font-sans font-semibold tracking-[0.15em] uppercase text-cream/50 mb-4">
               Visit Us
             </h3>
-            <address className="not-italic text-sm text-warm-gray leading-relaxed space-y-2.5">
+            <address className="not-italic text-sm text-cream/70 leading-relaxed space-y-2.5">
               <p>18 N Main St</p>
               <p>Weaverville, NC 28787</p>
               <p>(828) 658-9617</p>
             </address>
-            <div className="mt-4 text-sm text-warm-gray leading-relaxed space-y-1">
+            <div className="mt-4 text-sm text-cream/50 leading-relaxed space-y-1">
               <p>Mon: Closed</p>
               <p>Tue&ndash;Sat: 10am &ndash; 6pm</p>
               <p>Sun: 12pm &ndash; 5pm</p>
+            </div>
+          </div>
+
+          {/* Column 3: Social */}
+          <div>
+            <h3 className="text-xs font-sans font-semibold tracking-[0.15em] uppercase text-cream/50 mb-4">
+              Follow Along
+            </h3>
+            <div className="flex flex-col gap-2.5">
+              {socialLinks.map(({ href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow us on ${label}`}
+                  className="text-sm text-cream/70 hover:text-terracotta-light transition-colors duration-200"
+                >
+                  {label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-border">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5">
-          <p className="text-xs text-warm-gray text-center">
+      <div className="border-t border-cream/10">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10 py-6">
+          <p className="text-xs text-cream/30 text-center">
             &copy; {currentYear} Artisans On Main. All rights reserved.
           </p>
         </div>

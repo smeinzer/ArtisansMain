@@ -19,7 +19,7 @@ export default function VisitPage() {
         as="h1"
         className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
       />
-      <p className="mt-4 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed">
+      <p className="mt-5 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed">
         We&rsquo;d love to see you in the gallery. Stop by to browse, meet our
         artists at an opening, or simply enjoy a quiet moment with beautiful
         things.

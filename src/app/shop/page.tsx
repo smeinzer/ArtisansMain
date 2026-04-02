@@ -53,9 +53,9 @@ export default function ShopPage() {
       <SplitText
         text="The Collection"
         as="h1"
-        className="font-serif text-4xl md:text-5xl font-medium text-charcoal mb-2"
+        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
       />
-      <p className="text-sm text-warm-gray mb-10" aria-live="polite" aria-atomic="true">
+      <p className="mt-3 text-sm text-warm-gray mb-10" aria-live="polite" aria-atomic="true">
         {filteredProducts.length} piece{filteredProducts.length !== 1 ? 's' : ''}
       </p>
 

@@ -51,8 +51,8 @@ export default async function HomePage() {
       />
       <HorizontalGallery />
       <ImpactStats />
-      <ArtistQuotes />
       <Announcements />
+      <ArtistQuotes />
       <VisitTeaser />
     </>
   );

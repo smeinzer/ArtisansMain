@@ -47,7 +47,7 @@ export default function ContactPage() {
         as="h1"
         className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
       />
-      <p className="mt-4 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed">
+      <p className="mt-5 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed">
         Have a question about a piece, interested in consigning your work, or
         just want to say hello? We&rsquo;d love to hear from you.
       </p>
@@ -114,7 +114,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="relative overflow-hidden bg-terracotta text-white px-10 py-3 tracking-wide hover:bg-terracotta-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed group"
+                className="bg-terracotta text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-terracotta-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <span className="relative z-10">
                   {submitting ? 'Sending...' : 'Send Message'}

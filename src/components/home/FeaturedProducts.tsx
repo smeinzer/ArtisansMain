@@ -9,7 +9,7 @@ export default function FeaturedProducts() {
     .slice(0, 6);
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6">
         <AnimateOnScroll>
           <SectionHeading

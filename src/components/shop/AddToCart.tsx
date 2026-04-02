@@ -31,7 +31,7 @@ export default function AddToCart({ product }: AddToCartProps) {
     return (
       <button
         disabled
-        className="w-full bg-warm-gray-light text-warm-gray py-3.5 tracking-wide cursor-not-allowed"
+        className="w-full bg-warm-gray-light text-warm-gray py-3 text-sm font-medium tracking-wide cursor-not-allowed"
       >
         Sold
       </button>
@@ -75,7 +75,7 @@ export default function AddToCart({ product }: AddToCartProps) {
       </div>
       <button
         onClick={handleAddToCart}
-        className={`w-full py-3.5 tracking-wide transition-all duration-200 active:scale-[0.97] ${
+        className={`w-full py-3 text-sm font-medium tracking-wide transition-all duration-200 active:scale-[0.97] ${
           added
             ? 'bg-charcoal text-cream'
             : 'bg-terracotta text-white hover:bg-terracotta-dark'
