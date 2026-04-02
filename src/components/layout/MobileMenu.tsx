@@ -1,16 +1,28 @@
 'use client';
 
-import { useEffect, useCallback, useRef } from 'react';
-import Navigation from './Navigation';
+import { useEffect, useCallback, useRef, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { demoSiteSettings } from '@/lib/demo';
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const navLinks = [
+  { href: '/shop', label: 'Shop' },
+  { href: '/artists', label: 'Artists' },
+  { href: '/about', label: 'About' },
+  { href: '/visit', label: 'Visit' },
+  { href: '/contact', label: 'Contact' },
+] as const;
+
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+  const [animateLinks, setAnimateLinks] = useState(false);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -46,14 +58,19 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
-      // Move focus into the dialog
       closeButtonRef.current?.focus();
-    }
-
-    return () => {
+      // Stagger link animations after panel slides in
+      const timer = setTimeout(() => setAnimateLinks(true), 150);
+      return () => {
+        clearTimeout(timer);
+        document.removeEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = '';
+      };
+    } else {
+      setAnimateLinks(false);
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
-    };
+    }
   }, [isOpen, handleKeyDown]);
 
   return (
@@ -66,7 +83,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       {/* Backdrop */}
       <button
         type="button"
-        className={`absolute inset-0 w-full h-full bg-charcoal/40 transition-opacity duration-300 cursor-default ${
+        className={`absolute inset-0 w-full h-full bg-charcoal/50 backdrop-blur-sm transition-opacity duration-300 cursor-default ${
           isOpen ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={onClose}
@@ -74,18 +91,22 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         tabIndex={-1}
       />
 
-      {/* Panel */}
+      {/* Full-screen panel */}
       <aside
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile menu"
-        className={`absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-cream shadow-lg
-          transition-transform duration-300 ease-in-out
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+        className={`absolute inset-0 bg-cream flex flex-col
+          transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+          ${isOpen ? 'translate-y-0' : '-translate-y-full'}
         `}
       >
-        <div className="flex items-center justify-end p-6">
+        {/* Header row */}
+        <div className="flex items-center justify-between px-6 py-5">
+          <span className="font-serif text-xl text-charcoal tracking-tight">
+            Artisans On Main
+          </span>
           <button
             ref={closeButtonRef}
             onClick={onClose}
@@ -94,8 +115,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="28"
+              height="28"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -110,8 +131,53 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </button>
         </div>
 
-        <div className="px-8 py-4">
-          <Navigation mobile onClose={onClose} />
+        {/* Navigation links — staggered entrance */}
+        <nav className="flex-1 flex flex-col justify-center px-10" aria-label="Mobile navigation">
+          <ul className="space-y-6">
+            {navLinks.map(({ href, label }, i) => {
+              const isActive = pathname === href || pathname.startsWith(`${href}/`);
+              return (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    onClick={onClose}
+                    className={`block font-serif text-4xl sm:text-5xl font-medium tracking-tight transition-colors duration-200 ${
+                      isActive ? 'text-terracotta' : 'text-charcoal'
+                    }`}
+                    style={{
+                      opacity: animateLinks ? 1 : 0,
+                      transform: animateLinks ? 'translateY(0)' : 'translateY(20px)',
+                      transition: `opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 80}ms, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 80}ms`,
+                    }}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        {/* Bottom info */}
+        <div
+          className="px-10 pb-10"
+          style={{
+            opacity: animateLinks ? 1 : 0,
+            transform: animateLinks ? 'translateY(0)' : 'translateY(10px)',
+            transition: `opacity 0.5s ease-out ${navLinks.length * 80 + 100}ms, transform 0.5s ease-out ${navLinks.length * 80 + 100}ms`,
+          }}
+        >
+          <div className="border-t border-border pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <address className="not-italic text-sm text-warm-gray">
+              {demoSiteSettings.address}
+            </address>
+            <a
+              href={`tel:${demoSiteSettings.phone.replace(/[^+\d]/g, '')}`}
+              className="text-sm text-warm-gray hover:text-terracotta transition-colors"
+            >
+              {demoSiteSettings.phone}
+            </a>
+          </div>
         </div>
       </aside>
     </div>

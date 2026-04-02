@@ -3,6 +3,7 @@ import { demoProducts, demoArtists } from '@/lib/demo';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import ProductGallery from '@/components/shop/ProductGallery';
 import AddToCart from '@/components/shop/AddToCart';
+import StickyAddToCart from '@/components/shop/StickyAddToCart';
 import ProductCard from '@/components/shop/ProductCard';
 import SectionHeading from '@/components/ui/SectionHeading';
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll';
@@ -88,6 +89,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <dd className="text-charcoal">{product.dimensions}</dd>
           </dl>
 
+          <StickyAddToCart product={product} />
           <AddToCart product={product} />
         </div>
       </div>

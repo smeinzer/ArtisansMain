@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 interface Quote {
   text: string;
@@ -37,6 +37,26 @@ export default function ArtistQuotes() {
   const intervalRef = useRef<ReturnType<typeof setInterval>>(undefined);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const touchStartX = useRef(0);
+
+  const goTo = useCallback((index: number) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrent(index);
+      setIsTransitioning(false);
+    }, 400);
+  }, []);
+
+  const startAutoRotate = useCallback(() => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrent((prev) => (prev + 1) % quotes.length);
+        setIsTransitioning(false);
+      }, 400);
+    }, 5000);
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -57,17 +77,36 @@ export default function ArtistQuotes() {
 
   useEffect(() => {
     if (!isVisible) return;
-
-    intervalRef.current = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrent((prev) => (prev + 1) % quotes.length);
-        setIsTransitioning(false);
-      }, 600);
-    }, 5000);
-
+    startAutoRotate();
     return () => clearInterval(intervalRef.current);
-  }, [isVisible]);
+  }, [isVisible, startAutoRotate]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    const threshold = 50;
+    if (Math.abs(delta) < threshold) return;
+
+    if (delta < 0) {
+      // Swipe left → next
+      const next = (current + 1) % quotes.length;
+      goTo(next);
+    } else {
+      // Swipe right → prev
+      const prev = (current - 1 + quotes.length) % quotes.length;
+      goTo(prev);
+    }
+    startAutoRotate();
+  };
+
+  const handleDotClick = (i: number) => {
+    if (i === current) return;
+    goTo(i);
+    startAutoRotate();
+  };
 
   const quote = quotes[current];
 
@@ -92,14 +131,17 @@ export default function ArtistQuotes() {
           &ldquo;
         </span>
 
-        {/* Quote text */}
-        <div className="min-h-[120px] md:min-h-[100px] flex items-center justify-center">
+        {/* Quote text — swipeable */}
+        <div
+          className="min-h-[140px] sm:min-h-[120px] md:min-h-[100px] flex items-center justify-center touch-pan-y"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <blockquote
-            className="transition-all duration-600"
             style={{
               opacity: isTransitioning ? 0 : 1,
-              transform: isTransitioning ? 'translateY(10px)' : 'translateY(0)',
-              transition: 'opacity 0.6s ease-in-out, transform 0.6s ease-in-out',
+              transform: isTransitioning ? 'translateY(8px)' : 'translateY(0)',
+              transition: 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out',
             }}
           >
             <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-medium text-charcoal leading-snug italic tracking-tight">
@@ -119,37 +161,25 @@ export default function ArtistQuotes() {
           </blockquote>
         </div>
 
-        {/* Dot indicators */}
-        <div className="mt-8 flex items-center justify-center gap-2" role="tablist">
+        {/* Dot indicators — larger touch targets on mobile */}
+        <div className="mt-8 flex items-center justify-center gap-3" role="tablist">
           {quotes.map((_, i) => (
             <button
               key={i}
               role="tab"
               aria-selected={i === current}
               aria-label={`Quote ${i + 1}`}
-              onClick={() => {
-                if (i === current) return;
-                setIsTransitioning(true);
-                setTimeout(() => {
-                  setCurrent(i);
-                  setIsTransitioning(false);
-                }, 600);
-                // Reset auto-rotation
-                clearInterval(intervalRef.current);
-                intervalRef.current = setInterval(() => {
-                  setIsTransitioning(true);
-                  setTimeout(() => {
-                    setCurrent((prev) => (prev + 1) % quotes.length);
-                    setIsTransitioning(false);
-                  }, 600);
-                }, 5000);
-              }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                i === current
-                  ? 'bg-terracotta w-6'
-                  : 'bg-warm-gray-light hover:bg-warm-gray'
-              }`}
-            />
+              onClick={() => handleDotClick(i)}
+              className="p-2 -m-2 group"
+            >
+              <span
+                className={`block h-2 rounded-full transition-all duration-300 ${
+                  i === current
+                    ? 'bg-terracotta w-6'
+                    : 'bg-warm-gray-light group-hover:bg-warm-gray w-2'
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>

@@ -171,6 +171,20 @@ html {
   }
 }
 
+/* Hide scrollbar for mobile carousels */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safe area for sticky bottom bars (iPhone notch/home bar) */
+.safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
 /* Focus styles for accessibility */
 :focus-visible {
   outline: 2px solid var(--color-terracotta);
