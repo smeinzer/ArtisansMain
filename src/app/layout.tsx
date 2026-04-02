@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import { CartProvider } from '@/context/CartContext';
+import { ThemeProvider } from '@/context/ThemeContext';
 import { ToastProvider } from '@/components/ui/Toast';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -11,6 +12,7 @@ import FilmGrain from '@/components/ui/FilmGrain';
 import CustomCursor from '@/components/ui/CustomCursor';
 import Preloader from '@/components/ui/Preloader';
 import BackToTop from '@/components/ui/BackToTop';
+import ViewTransitions from '@/components/ui/ViewTransitions';
 import './globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -129,9 +131,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <ThemeProvider>
         <Preloader />
         <SmoothScroll>
           <CustomCursor />
+          <ViewTransitions />
           <CartProvider>
             <ToastProvider>
             <a
@@ -155,6 +159,7 @@ export default function RootLayout({
           </CartProvider>
         </SmoothScroll>
         <FilmGrain />
+        </ThemeProvider>
       </body>
     </html>
   );

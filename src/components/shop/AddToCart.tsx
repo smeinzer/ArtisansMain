@@ -44,10 +44,10 @@ export default function AddToCart({ product }: AddToCartProps) {
         <label htmlFor="quantity" className="text-sm text-warm-gray">
           Quantity
         </label>
-        <div className="flex items-center border border-border">
+        <div className="flex items-center border border-border dark:border-warm-gray/30">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            className="px-3 py-2 text-sm text-charcoal hover:text-terracotta transition-colors"
+            className="px-3 py-2 text-sm text-charcoal dark:text-cream hover:text-terracotta transition-colors"
             aria-label="Decrease quantity"
           >
             &minus;
@@ -62,11 +62,11 @@ export default function AddToCart({ product }: AddToCartProps) {
               const val = parseInt(e.target.value, 10);
               if (!isNaN(val) && val >= 1) setQuantity(val);
             }}
-            className="w-12 text-center text-sm text-charcoal bg-transparent py-2 border-x border-border focus:outline-none"
+            className="w-12 text-center text-sm text-charcoal dark:text-cream bg-transparent py-2 border-x border-border dark:border-warm-gray/30 focus:outline-none"
           />
           <button
             onClick={() => setQuantity((q) => Math.min(99, q + 1))}
-            className="px-3 py-2 text-sm text-charcoal hover:text-terracotta transition-colors"
+            className="px-3 py-2 text-sm text-charcoal dark:text-cream hover:text-terracotta transition-colors"
             aria-label="Increase quantity"
           >
             +

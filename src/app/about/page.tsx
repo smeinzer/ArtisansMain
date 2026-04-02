@@ -20,7 +20,7 @@ export default function AboutPage() {
         <SplitText
           text="A Gallery Built on Craft"
           as="h1"
-          className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
+          className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal dark:text-cream leading-tight"
         />
         <p className="mt-5 text-warm-gray text-base md:text-lg leading-relaxed">
           Artisans On Main is a curated consignment gallery in the heart of
@@ -97,8 +97,8 @@ export default function AboutPage() {
       {/* Story sections */}
       <div className="mt-16 md:mt-24 max-w-3xl space-y-12">
         <AnimateOnScroll>
-          <section>
-            <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal mb-4">
+          <section className="scroll-animate">
+            <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal dark:text-cream mb-4">
               Our Story
             </h2>
             <div className="text-warm-gray leading-relaxed space-y-4">
@@ -120,8 +120,8 @@ export default function AboutPage() {
         </AnimateOnScroll>
 
         <AnimateOnScroll>
-          <section>
-            <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal mb-4">
+          <section className="scroll-animate">
+            <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal dark:text-cream mb-4">
               The Consignment Model
             </h2>
             <div className="text-warm-gray leading-relaxed space-y-4">
@@ -143,8 +143,8 @@ export default function AboutPage() {
         </AnimateOnScroll>
 
         <AnimateOnScroll>
-          <section>
-            <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal mb-4">
+          <section className="scroll-animate">
+            <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal dark:text-cream mb-4">
               Our Mission
             </h2>
             <p className="text-warm-gray leading-relaxed">

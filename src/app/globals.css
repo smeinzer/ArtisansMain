@@ -61,6 +61,208 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+html.dark body {
+  background-color: #1a1a1a;
+  color: #F0EDE8;
+}
+
+html.dark .bg-cream {
+  background-color: #1a1a1a;
+}
+
+html.dark .bg-cream-dark {
+  background-color: #222222;
+}
+
+html.dark .text-charcoal {
+  color: #F0EDE8;
+}
+
+html.dark .text-charcoal-light {
+  color: #B8B0A6;
+}
+
+html.dark .text-warm-gray {
+  color: #9A9189;
+}
+
+html.dark .border-border {
+  border-color: #3a3a3a;
+}
+
+/* Dark mode header overrides */
+html.dark header:not([data-theme="dark"] *) .bg-cream\/80 {
+  background-color: rgba(26, 26, 26, 0.8);
+}
+
+/* Dark mode specific card overrides */
+html.dark .shadow-\[0_20px_60px_-15px_rgba\(0\,0\,0\,0\.15\)\] {
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark mode transitions */
+html.dark,
+html.dark body,
+html.dark .bg-cream,
+html.dark .bg-cream-dark,
+html.dark .text-charcoal,
+html.dark .border-border {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+/* ========================================
+   CSS SCROLL-DRIVEN ANIMATIONS
+   ======================================== */
+
+/* Scroll-triggered fade up — applied via .scroll-animate class */
+@keyframes scroll-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scroll-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scroll-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Use animation-timeline: view() for browsers that support it */
+@supports (animation-timeline: view()) {
+  .scroll-animate {
+    animation: scroll-fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+
+  .scroll-animate-fade {
+    animation: scroll-fade-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 25%;
+  }
+
+  .scroll-animate-scale {
+    animation: scroll-scale-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+
+  .scroll-animate-left {
+    animation: scroll-slide-left linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+
+  .scroll-animate-right {
+    animation: scroll-slide-right linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+}
+
+/* ========================================
+   VIEW TRANSITIONS API
+   ======================================== */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(main-content) {
+  animation: 200ms ease-out both fade-out-and-shrink;
+}
+
+::view-transition-new(main-content) {
+  animation: 300ms ease-out 100ms both fade-in-and-grow;
+}
+
+::view-transition-old(header) {
+  animation: none;
+}
+
+::view-transition-new(header) {
+  animation: none;
+}
+
+@keyframes fade-out-and-shrink {
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes fade-in-and-grow {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+/* ========================================
+   IMAGE HOVER DISTORTION
+   ======================================== */
+
+.img-distort {
+  transition: filter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: filter, transform;
+}
+
+.img-distort:hover,
+.group:hover .img-distort {
+  filter: brightness(1.05) saturate(1.12) contrast(1.03);
+  transform: scale(1.04);
+}
+
+/* ========================================
+   EXISTING ANIMATIONS
+   ======================================== */
+
 /* Page transition animation */
 @keyframes page-fade-in {
   from {

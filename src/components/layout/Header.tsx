@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import MobileMenu from './MobileMenu';
 import CartSlideOut from './CartSlideOut';
 
@@ -55,7 +56,7 @@ export default function Header() {
     };
   }, [checkDarkSections]);
 
-  const textColor = inverted ? 'text-cream' : 'text-charcoal';
+  const textColor = inverted ? 'text-cream' : 'text-charcoal dark:text-cream';
   const hoverColor = inverted ? 'hover:text-terracotta-light' : 'hover:text-terracotta';
 
   return (
@@ -98,7 +99,10 @@ export default function Header() {
             </nav>
 
             {/* Right section: cart + mobile hamburger */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Theme toggle */}
+              <ThemeToggle className={`${textColor} ${hoverColor}`} />
+
               {/* Cart icon */}
               <button
                 onClick={openSlideOut}

@@ -45,7 +45,7 @@ export default function ContactPage() {
       <SplitText
         text="Get in Touch"
         as="h1"
-        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
+        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal dark:text-cream leading-tight"
       />
       <p className="mt-5 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed">
         Have a question about a piece, interested in consigning your work, or
