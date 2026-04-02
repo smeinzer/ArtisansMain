@@ -25,7 +25,6 @@ export default function TiltCard({ children, className = '' }: TiltCardProps) {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
-    // Normalize cursor offset to -1..1 range
     const offsetX = (e.clientX - centerX) / (rect.width / 2);
     const offsetY = (e.clientY - centerY) / (rect.height / 2);
 
@@ -36,7 +35,6 @@ export default function TiltCard({ children, className = '' }: TiltCardProps) {
       rotateY: offsetX * maxAngle,
     });
 
-    // Shine position as percentage
     setShine({
       x: ((e.clientX - rect.left) / rect.width) * 100,
       y: ((e.clientY - rect.top) / rect.height) * 100,
@@ -61,35 +59,30 @@ export default function TiltCard({ children, className = '' }: TiltCardProps) {
 
   return (
     <div
-      style={{ perspective: '1000px' }}
-      className={className}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`relative ${className}`}
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+        transformStyle: 'preserve-3d',
+        transition: isHovering
+          ? 'none'
+          : 'transform 0.5s ease-out',
+      }}
     >
-      <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          transformStyle: 'preserve-3d',
-          transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
-          transition: isHovering
-            ? 'none'
-            : 'transform 0.5s ease-out',
-        }}
-        className="relative"
-      >
-        {children}
+      {children}
 
-        {/* Shine overlay */}
-        <div
-          className="pointer-events-none absolute inset-0 z-10 rounded-[inherit]"
-          style={{
-            background: isHovering
-              ? `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(255,255,255,0.05) 0%, transparent 60%)`
-              : 'none',
-          }}
-        />
-      </div>
+      {/* Shine overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 rounded-[inherit]"
+        style={{
+          background: isHovering
+            ? `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(255,255,255,0.05) 0%, transparent 60%)`
+            : 'none',
+        }}
+      />
     </div>
   );
 }
