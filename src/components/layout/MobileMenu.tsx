@@ -97,21 +97,21 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Mobile menu"
-        className={`absolute inset-0 bg-cream flex flex-col
+        className={`absolute inset-0 bg-cream dark:bg-dark-bg flex flex-col
           transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
           ${isOpen ? 'translate-y-0' : '-translate-y-full'}
         `}
       >
         {/* Header row */}
         <div className="flex items-center justify-between px-6 py-5">
-          <span className="font-serif text-xl text-charcoal tracking-tight">
+          <span className="font-serif text-xl text-charcoal dark:text-dark-text tracking-tight">
             Artisans On Main
           </span>
           <button
             ref={closeButtonRef}
             onClick={onClose}
             aria-label="Close menu"
-            className="text-charcoal hover:text-terracotta transition-colors duration-200 p-1"
+            className="text-charcoal dark:text-dark-text hover:text-terracotta transition-colors duration-200 p-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +142,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     href={href}
                     onClick={onClose}
                     className={`block font-serif text-4xl sm:text-5xl font-medium tracking-tight transition-colors duration-200 ${
-                      isActive ? 'text-terracotta' : 'text-charcoal'
+                      isActive ? 'text-terracotta' : 'text-charcoal dark:text-dark-text'
                     }`}
                     style={{
                       opacity: animateLinks ? 1 : 0,
@@ -167,13 +167,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             transition: `opacity 0.5s ease-out ${navLinks.length * 80 + 100}ms, transform 0.5s ease-out ${navLinks.length * 80 + 100}ms`,
           }}
         >
-          <div className="border-t border-border pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <address className="not-italic text-sm text-warm-gray">
+          <div className="border-t border-border dark:border-dark-border pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <address className="not-italic text-sm text-warm-gray dark:text-dark-text-muted">
               {demoSiteSettings.address}
             </address>
             <a
               href={`tel:${demoSiteSettings.phone.replace(/[^+\d]/g, '')}`}
-              className="text-sm text-warm-gray hover:text-terracotta transition-colors"
+              className="text-sm text-warm-gray dark:text-dark-text-muted hover:text-terracotta transition-colors"
             >
               {demoSiteSettings.phone}
             </a>

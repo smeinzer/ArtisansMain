@@ -57,7 +57,7 @@ export default function ContactPage() {
         <AnimateOnScroll>
           {submitted ? (
             <div className="py-16 text-center" role="status" aria-live="polite">
-              <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal mb-3">
+              <h2 className="font-serif text-2xl md:text-3xl font-medium text-charcoal dark:text-dark-text mb-3">
                 Message Sent
               </h2>
               <p className="text-warm-gray leading-relaxed">
@@ -128,7 +128,7 @@ export default function ContactPage() {
         <AnimateOnScroll delay={150}>
           <aside className="space-y-8">
             <section>
-              <h2 className="text-xs font-sans font-semibold tracking-wide uppercase text-charcoal mb-3">
+              <h2 className="text-xs font-sans font-semibold tracking-wide uppercase text-charcoal dark:text-dark-text mb-3">
                 Address
               </h2>
               <address className="not-italic text-sm text-warm-gray leading-relaxed">
@@ -137,7 +137,7 @@ export default function ContactPage() {
             </section>
 
             <section>
-              <h2 className="text-xs font-sans font-semibold tracking-wide uppercase text-charcoal mb-3">
+              <h2 className="text-xs font-sans font-semibold tracking-wide uppercase text-charcoal dark:text-dark-text mb-3">
                 Phone
               </h2>
               <a
@@ -149,7 +149,7 @@ export default function ContactPage() {
             </section>
 
             <section>
-              <h2 className="text-xs font-sans font-semibold tracking-wide uppercase text-charcoal mb-3">
+              <h2 className="text-xs font-sans font-semibold tracking-wide uppercase text-charcoal dark:text-dark-text mb-3">
                 Email
               </h2>
               <a
@@ -161,7 +161,7 @@ export default function ContactPage() {
             </section>
 
             <section>
-              <h2 className="text-xs font-sans font-semibold tracking-wide uppercase text-charcoal mb-3">
+              <h2 className="text-xs font-sans font-semibold tracking-wide uppercase text-charcoal dark:text-dark-text mb-3">
                 Social
               </h2>
               <div className="flex gap-4">
@@ -179,8 +179,8 @@ export default function ContactPage() {
               </div>
             </section>
 
-            <section className="p-6 bg-cream-dark border border-border">
-              <h3 className="font-serif text-lg font-medium text-charcoal mb-2">
+            <section className="p-6 bg-cream-dark dark:bg-dark-surface border border-border dark:border-dark-border">
+              <h3 className="font-serif text-lg font-medium text-charcoal dark:text-dark-text mb-2">
                 For Artists
               </h3>
               <p className="text-sm text-warm-gray leading-relaxed">

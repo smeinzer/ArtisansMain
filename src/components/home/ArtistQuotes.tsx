@@ -113,7 +113,7 @@ export default function ArtistQuotes() {
   return (
     <section
       ref={sectionRef}
-      className="py-20 md:py-28 px-6 bg-cream"
+      className="py-20 md:py-28 px-6 bg-cream dark:bg-dark-bg"
     >
       <div
         className="max-w-4xl mx-auto text-center"
@@ -144,12 +144,12 @@ export default function ArtistQuotes() {
               transition: 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out',
             }}
           >
-            <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-medium text-charcoal leading-snug italic tracking-tight">
+            <p className="font-serif text-2xl md:text-3xl lg:text-4xl font-medium text-charcoal dark:text-dark-text leading-snug italic tracking-tight">
               {quote.text}
             </p>
             <footer className="mt-6">
               <cite className="not-italic">
-                <span className="text-sm font-medium text-charcoal tracking-wide">
+                <span className="text-sm font-medium text-charcoal dark:text-dark-text tracking-wide">
                   {quote.artist}
                 </span>
                 <span className="mx-2 text-warm-gray-light">&mdash;</span>
@@ -176,7 +176,7 @@ export default function ArtistQuotes() {
                 className={`block h-2 rounded-full transition-all duration-300 ${
                   i === current
                     ? 'bg-terracotta w-6'
-                    : 'bg-warm-gray-light group-hover:bg-warm-gray w-2'
+                    : 'bg-warm-gray-light dark:bg-dark-border group-hover:bg-warm-gray w-2'
                 }`}
               />
             </button>

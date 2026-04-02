@@ -84,7 +84,7 @@ export default function Marquee({
 
   return (
     <section
-      className={`bg-cream-dark py-6 md:py-8 overflow-hidden ${className}`}
+      className={`bg-cream-dark dark:bg-dark-surface py-6 md:py-8 overflow-hidden ${className}`}
       aria-label="Gallery categories"
     >
       <div

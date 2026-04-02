@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* ========================================
+   DARK MODE: Override Tailwind v4 default
+   to use class-based dark mode instead of
+   prefers-color-scheme media query.
+   ======================================== */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Lenis smooth scroll */
 html.lenis, html.lenis body {
   height: auto;
@@ -33,6 +40,14 @@ html.lenis, html.lenis body {
   --color-warm-gray-light: #B8B0A6;
   --color-border: #E5E0DA;
 
+  /* Dark mode palette */
+  --color-dark-bg: #1a1a1a;
+  --color-dark-surface: #222222;
+  --color-dark-surface-2: #2a2a2a;
+  --color-dark-border: #3a3a3a;
+  --color-dark-text: #F0EDE8;
+  --color-dark-text-muted: #9A9189;
+
   --font-serif: var(--font-cormorant-garamond);
   --font-sans: var(--font-dm-sans);
 }
@@ -43,6 +58,12 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.dark body {
+  background-color: var(--color-dark-bg);
+  color: var(--color-dark-text);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -62,117 +83,34 @@ html {
 }
 
 /* ========================================
-   DARK MODE
-   ======================================== */
-
-html.dark body {
-  background-color: #1a1a1a;
-  color: #F0EDE8;
-}
-
-html.dark .bg-cream {
-  background-color: #1a1a1a;
-}
-
-html.dark .bg-cream-dark {
-  background-color: #222222;
-}
-
-html.dark .text-charcoal {
-  color: #F0EDE8;
-}
-
-html.dark .text-charcoal-light {
-  color: #B8B0A6;
-}
-
-html.dark .text-warm-gray {
-  color: #9A9189;
-}
-
-html.dark .border-border {
-  border-color: #3a3a3a;
-}
-
-/* Dark mode header overrides */
-html.dark header:not([data-theme="dark"] *) .bg-cream\/80 {
-  background-color: rgba(26, 26, 26, 0.8);
-}
-
-/* Dark mode specific card overrides */
-html.dark .shadow-\[0_20px_60px_-15px_rgba\(0\,0\,0\,0\.15\)\] {
-  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.4);
-}
-
-/* Dark mode transitions */
-html.dark,
-html.dark body,
-html.dark .bg-cream,
-html.dark .bg-cream-dark,
-html.dark .text-charcoal,
-html.dark .border-border {
-  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
-}
-
-/* ========================================
    CSS SCROLL-DRIVEN ANIMATIONS
    ======================================== */
 
-/* Scroll-triggered fade up — applied via .scroll-animate class */
 @keyframes scroll-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scroll-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes scroll-scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes scroll-slide-left {
-  from {
-    opacity: 0;
-    transform: translateX(60px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scroll-slide-right {
-  from {
-    opacity: 0;
-    transform: translateX(-60px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-/* Use animation-timeline: view() for browsers that support it */
 @supports (animation-timeline: view()) {
   .scroll-animate {
     animation: scroll-fade-up linear both;
@@ -221,26 +159,17 @@ html.dark .border-border {
   animation: 300ms ease-out 100ms both fade-in-and-grow;
 }
 
-::view-transition-old(header) {
-  animation: none;
-}
-
+::view-transition-old(header),
 ::view-transition-new(header) {
   animation: none;
 }
 
 @keyframes fade-out-and-shrink {
-  to {
-    opacity: 0;
-    transform: scale(0.98);
-  }
+  to { opacity: 0; transform: scale(0.98); }
 }
 
 @keyframes fade-in-and-grow {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
+  from { opacity: 0; transform: scale(0.98); }
 }
 
 /* ========================================
@@ -263,59 +192,32 @@ html.dark .border-border {
    EXISTING ANIMATIONS
    ======================================== */
 
-/* Page transition animation */
 @keyframes page-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .page-transition {
   animation: page-fade-in 300ms ease-out both;
 }
 
-/* Hero entrance animation */
 @keyframes hero-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-hero-fade-in {
   animation: hero-fade-in 0.8s ease-out both;
 }
 
-/* Toast animations */
 @keyframes toast-slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes toast-fade-out {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(10px);
-  }
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(10px); }
 }
 
 .animate-toast-slide-up {
@@ -326,13 +228,11 @@ html.dark .border-border {
   animation: toast-fade-out 300ms ease-in both;
 }
 
-/* Marquee ticker animation */
 @keyframes marquee-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 
-/* Film grain overlay animation */
 @keyframes grain-shift {
   0%, 100% { transform: translate(0, 0); }
   10% { transform: translate(-1%, -1%); }
@@ -350,27 +250,14 @@ html.dark .border-border {
   animation: grain-shift 0.5s steps(10) infinite;
 }
 
-/* Preloader animations */
 @keyframes preloader-text-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-    letter-spacing: 0.15em;
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    letter-spacing: -0.01em;
-  }
+  from { opacity: 0; transform: translateY(20px); letter-spacing: 0.15em; }
+  to { opacity: 1; transform: translateY(0); letter-spacing: -0.01em; }
 }
 
 @keyframes preloader-line-in {
-  from {
-    width: 0;
-  }
-  to {
-    width: 60px;
-  }
+  from { width: 0; }
+  to { width: 60px; }
 }
 
 /* Hide scrollbar for mobile carousels */

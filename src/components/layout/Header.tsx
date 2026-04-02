@@ -56,6 +56,8 @@ export default function Header() {
     };
   }, [checkDarkSections]);
 
+  // When over a data-theme="dark" section, always use light text.
+  // Otherwise, use charcoal in light mode, cream in dark mode.
   const textColor = inverted ? 'text-cream' : 'text-charcoal dark:text-cream';
   const hoverColor = inverted ? 'hover:text-terracotta-light' : 'hover:text-terracotta';
 
@@ -69,8 +71,8 @@ export default function Header() {
               ? 'bg-charcoal/80 backdrop-blur-md shadow-sm border-b border-transparent'
               : 'bg-charcoal/60 backdrop-blur-sm md:bg-transparent border-b border-transparent'
             : scrolled
-              ? 'bg-cream/80 backdrop-blur-md shadow-sm border-b border-transparent'
-              : 'bg-cream border-b border-border'
+              ? 'bg-cream/80 dark:bg-dark-bg/80 backdrop-blur-md shadow-sm border-b border-transparent'
+              : 'bg-cream dark:bg-dark-bg border-b border-border dark:border-dark-border'
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -98,7 +100,7 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* Right section: cart + mobile hamburger */}
+            {/* Right section: theme toggle + cart + mobile hamburger */}
             <div className="flex items-center gap-2 sm:gap-3">
               {/* Theme toggle */}
               <ThemeToggle className={`${textColor} ${hoverColor}`} />

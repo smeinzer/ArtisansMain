@@ -60,7 +60,7 @@ export default function BackToTop() {
           fill="none"
           stroke="currentColor"
           strokeWidth={strokeWidth}
-          className="text-border"
+          className="text-border dark:text-dark-border"
         />
         {/* Progress arc */}
         <circle
@@ -77,14 +77,14 @@ export default function BackToTop() {
         />
       </svg>
       {/* Background fill */}
-      <span className="absolute inset-[3px] rounded-full bg-cream shadow-md" />
+      <span className="absolute inset-[3px] rounded-full bg-cream dark:bg-dark-surface shadow-md transition-colors duration-300" />
       {/* Arrow */}
       <svg
         width="16"
         height="16"
         viewBox="0 0 16 16"
         fill="none"
-        className="relative z-10 text-charcoal"
+        className="relative z-10 text-charcoal dark:text-dark-text"
       >
         <path
           d="M8 13V3M4 6l4-4 4 4"

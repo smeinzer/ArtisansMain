@@ -17,7 +17,7 @@ export default function VisitPage() {
       <SplitText
         text="Visit Us"
         as="h1"
-        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal leading-tight"
+        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal dark:text-dark-text leading-tight"
       />
       <p className="mt-5 text-warm-gray text-base md:text-lg max-w-2xl leading-relaxed">
         We&rsquo;d love to see you in the gallery. Stop by to browse, meet our
@@ -30,7 +30,7 @@ export default function VisitPage() {
         <div>
           <AnimateOnScroll>
             {/* Google Map embed */}
-            <div className="relative aspect-[4/3] bg-cream-dark overflow-hidden">
+            <div className="relative aspect-[4/3] bg-cream-dark dark:bg-dark-surface overflow-hidden">
               <iframe
                 title="Artisans On Main location"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.5!2d-82.5607!3d35.6971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQxJzQ5LjYiTiA4MsKwMzMnMzguNSJX!5e0!3m2!1sen!2sus!4v1700000000000"
@@ -47,7 +47,7 @@ export default function VisitPage() {
 
           <AnimateOnScroll delay={100}>
             <div className="mt-8">
-              <h2 className="font-serif text-2xl font-medium text-charcoal mb-4">
+              <h2 className="font-serif text-2xl font-medium text-charcoal dark:text-dark-text mb-4">
                 Getting Here
               </h2>
               <div className="text-warm-gray leading-relaxed space-y-3 text-sm">
@@ -56,13 +56,13 @@ export default function VisitPage() {
                   just 10 minutes north of Asheville via US-19/23.
                 </p>
                 <p>
-                  <strong className="text-charcoal">From Asheville:</strong>{' '}
+                  <strong className="text-charcoal dark:text-dark-text">From Asheville:</strong>{' '}
                   Take US-19/23 North (Future I-26) to Exit 21 (Weaverville /
                   New Stock Rd). Turn right onto New Stock Rd, then left onto
                   Main St. The gallery is on your right.
                 </p>
                 <p>
-                  <strong className="text-charcoal">Parking:</strong> Free
+                  <strong className="text-charcoal dark:text-dark-text">Parking:</strong> Free
                   street parking is available on Main Street and the surrounding
                   blocks. There is also a public lot behind the Town Hall, a
                   short walk from the gallery.
@@ -76,13 +76,13 @@ export default function VisitPage() {
         <div>
           <AnimateOnScroll>
             <section>
-              <h2 className="font-serif text-2xl font-medium text-charcoal mb-6">
+              <h2 className="font-serif text-2xl font-medium text-charcoal dark:text-dark-text mb-6">
                 Hours
               </h2>
               <dl className="space-y-3">
                 {hours.map((h) => (
                   <div key={h.day} className="flex justify-between text-sm">
-                    <dt className="text-charcoal font-medium">{h.day}</dt>
+                    <dt className="text-charcoal dark:text-dark-text font-medium">{h.day}</dt>
                     <dd className="text-warm-gray">
                       {h.open ? `${h.open} – ${h.close}` : 'Closed'}
                     </dd>
@@ -94,7 +94,7 @@ export default function VisitPage() {
 
           <AnimateOnScroll delay={100}>
             <section className="mt-10">
-              <h2 className="font-serif text-2xl font-medium text-charcoal mb-4">
+              <h2 className="font-serif text-2xl font-medium text-charcoal dark:text-dark-text mb-4">
                 Contact
               </h2>
               <address className="not-italic text-sm text-warm-gray leading-relaxed space-y-2">
@@ -120,8 +120,8 @@ export default function VisitPage() {
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={200}>
-            <section className="mt-10 p-6 bg-cream-dark border border-border">
-              <h3 className="font-serif text-lg font-medium text-charcoal mb-2">
+            <section className="mt-10 p-6 bg-cream-dark dark:bg-dark-surface border border-border dark:border-dark-border">
+              <h3 className="font-serif text-lg font-medium text-charcoal dark:text-dark-text mb-2">
                 Accessibility
               </h3>
               <p className="text-sm text-warm-gray leading-relaxed">

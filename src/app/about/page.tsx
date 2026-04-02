@@ -33,7 +33,7 @@ export default function AboutPage() {
       {/* Photo grid with staggered parallax */}
       <div className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 overflow-hidden">
         <ParallaxGridItem speed={0.03} className="col-span-1 row-span-2">
-          <ImageReveal direction="left" delay={0} className="relative aspect-[3/4] bg-cream-dark">
+          <ImageReveal direction="left" delay={0} className="relative aspect-[3/4] bg-cream-dark dark:bg-dark-surface">
             <Image
               src="https://picsum.photos/seed/about-gallery-1/600/800"
               alt="Gallery interior showing paintings on display"
@@ -46,7 +46,7 @@ export default function AboutPage() {
         </ParallaxGridItem>
 
         <ParallaxGridItem speed={0.06}>
-          <ImageReveal direction="right" delay={150} className="relative aspect-square bg-cream-dark">
+          <ImageReveal direction="right" delay={150} className="relative aspect-square bg-cream-dark dark:bg-dark-surface">
             <Image
               src="https://picsum.photos/seed/about-gallery-2/600/600"
               alt="Close-up of handcrafted ceramics on a shelf"
@@ -58,7 +58,7 @@ export default function AboutPage() {
         </ParallaxGridItem>
 
         <ParallaxGridItem speed={0.04} className="hidden md:block">
-          <ImageReveal direction="up" delay={300} className="relative aspect-square bg-cream-dark">
+          <ImageReveal direction="up" delay={300} className="relative aspect-square bg-cream-dark dark:bg-dark-surface">
             <Image
               src="https://picsum.photos/seed/about-gallery-3/600/600"
               alt="Artist working at their studio bench"
@@ -70,7 +70,7 @@ export default function AboutPage() {
         </ParallaxGridItem>
 
         <ParallaxGridItem speed={0.07}>
-          <div className="relative aspect-square overflow-hidden bg-cream-dark">
+          <div className="relative aspect-square overflow-hidden bg-cream-dark dark:bg-dark-surface">
             <Image
               src="https://picsum.photos/seed/about-gallery-4/600/600"
               alt="Jewelry display case with handcrafted pieces"
@@ -82,7 +82,7 @@ export default function AboutPage() {
         </ParallaxGridItem>
 
         <ParallaxGridItem speed={0.05} className="hidden md:block">
-          <div className="relative aspect-square overflow-hidden bg-cream-dark">
+          <div className="relative aspect-square overflow-hidden bg-cream-dark dark:bg-dark-surface">
             <Image
               src="https://picsum.photos/seed/about-gallery-5/600/600"
               alt="Gallery opening event with visitors"

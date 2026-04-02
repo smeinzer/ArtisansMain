@@ -76,21 +76,21 @@ export default function CartSlideOut() {
         role="dialog"
         aria-modal="true"
         aria-label="Shopping cart"
-        className={`absolute top-0 right-0 h-full w-96 max-w-[90vw] bg-cream shadow-lg
+        className={`absolute top-0 right-0 h-full w-96 max-w-[90vw] bg-cream dark:bg-dark-bg shadow-lg
           flex flex-col transition-transform duration-300 ease-in-out
           ${isSlideOutOpen ? 'translate-x-0' : 'translate-x-full'}
         `}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-border">
-          <h2 className="font-serif text-xl font-medium">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-border dark:border-dark-border">
+          <h2 className="font-serif text-xl font-medium text-charcoal dark:text-dark-text">
             Your Cart ({itemCount})
           </h2>
           <button
             ref={closeButtonRef}
             onClick={closeSlideOut}
             aria-label="Close cart"
-            className="text-charcoal hover:text-terracotta transition-colors duration-200 p-1"
+            className="text-charcoal dark:text-dark-text hover:text-terracotta transition-colors duration-200 p-1"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -103,7 +103,7 @@ export default function CartSlideOut() {
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
-              <p className="text-warm-gray mb-4">Your cart is empty</p>
+              <p className="text-warm-gray dark:text-dark-text-muted mb-4">Your cart is empty</p>
               <button
                 onClick={closeSlideOut}
                 className="text-sm text-terracotta hover:text-terracotta-dark transition-colors duration-200"
@@ -118,7 +118,7 @@ export default function CartSlideOut() {
                   <Link
                     href={`/shop/${item.product.handle}`}
                     onClick={closeSlideOut}
-                    className="relative w-20 h-24 flex-shrink-0 bg-cream-dark overflow-hidden"
+                    className="relative w-20 h-24 flex-shrink-0 bg-cream-dark dark:bg-dark-surface overflow-hidden"
                   >
                     <Image
                       src={item.product.images[0]}
@@ -132,31 +132,31 @@ export default function CartSlideOut() {
                     <Link
                       href={`/shop/${item.product.handle}`}
                       onClick={closeSlideOut}
-                      className="text-sm font-medium text-charcoal hover:text-terracotta transition-colors duration-200 line-clamp-2"
+                      className="text-sm font-medium text-charcoal dark:text-dark-text hover:text-terracotta transition-colors duration-200 line-clamp-2"
                     >
                       {item.product.title}
                     </Link>
-                    <p className="text-xs text-warm-gray mt-0.5">
+                    <p className="text-xs text-warm-gray dark:text-dark-text-muted mt-0.5">
                       {item.product.artist}
                     </p>
-                    <p className="text-sm text-charcoal mt-1">
+                    <p className="text-sm text-charcoal dark:text-dark-text mt-1">
                       ${item.product.price.toLocaleString()}
                     </p>
                     <div className="flex items-center gap-3 mt-2">
-                      <div className="flex items-center border border-border">
+                      <div className="flex items-center border border-border dark:border-dark-border">
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                          className="px-2 py-1 text-xs text-charcoal hover:text-terracotta transition-colors"
+                          className="px-2 py-1 text-xs text-charcoal dark:text-dark-text hover:text-terracotta transition-colors"
                           aria-label={`Decrease quantity of ${item.product.title}`}
                         >
                           &minus;
                         </button>
-                        <span className="px-2 py-1 text-xs text-charcoal min-w-[24px] text-center">
+                        <span className="px-2 py-1 text-xs text-charcoal dark:text-dark-text min-w-[24px] text-center">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                          className="px-2 py-1 text-xs text-charcoal hover:text-terracotta transition-colors"
+                          className="px-2 py-1 text-xs text-charcoal dark:text-dark-text hover:text-terracotta transition-colors"
                           aria-label={`Increase quantity of ${item.product.title}`}
                         >
                           +
@@ -164,7 +164,7 @@ export default function CartSlideOut() {
                       </div>
                       <button
                         onClick={() => removeItem(item.product.id)}
-                        className="text-xs text-warm-gray hover:text-terracotta transition-colors duration-200"
+                        className="text-xs text-warm-gray dark:text-dark-text-muted hover:text-terracotta transition-colors duration-200"
                         aria-label={`Remove ${item.product.title} from cart`}
                       >
                         Remove
@@ -179,14 +179,14 @@ export default function CartSlideOut() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t border-border px-6 py-5 space-y-4">
+          <div className="border-t border-border dark:border-dark-border px-6 py-5 space-y-4">
             <div className="flex justify-between text-sm">
-              <span className="text-warm-gray">Subtotal</span>
-              <span className="font-medium text-charcoal">
+              <span className="text-warm-gray dark:text-dark-text-muted">Subtotal</span>
+              <span className="font-medium text-charcoal dark:text-dark-text">
                 ${subtotal.toLocaleString()}
               </span>
             </div>
-            <p className="text-xs text-warm-gray">
+            <p className="text-xs text-warm-gray dark:text-dark-text-muted">
               Shipping and taxes calculated at checkout.
             </p>
             <button
@@ -201,7 +201,7 @@ export default function CartSlideOut() {
             <Link
               href="/cart"
               onClick={closeSlideOut}
-              className="block w-full text-center text-sm text-charcoal hover:text-terracotta transition-colors duration-200 py-1"
+              className="block w-full text-center text-sm text-charcoal dark:text-dark-text hover:text-terracotta transition-colors duration-200 py-1"
             >
               View Full Cart
             </Link>

@@ -7,7 +7,7 @@ export default function Announcements() {
   if (active.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-20 px-6 bg-cream-dark">
+    <section className="py-16 md:py-20 px-6 bg-cream-dark dark:bg-dark-surface">
       <div className="max-w-3xl mx-auto space-y-8">
         {active.map((announcement, i) => (
           <AnimateOnScroll key={announcement.id} delay={i * 100}>

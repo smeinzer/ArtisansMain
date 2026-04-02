@@ -34,7 +34,7 @@ export function FloatingInput({
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onChange={(e) => setHasValue(e.target.value.length > 0)}
-        className="peer w-full bg-transparent border-0 border-b-2 border-border px-0 pt-5 pb-2 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors duration-300"
+        className="peer w-full bg-transparent border-0 border-b-2 border-border dark:border-dark-border px-0 pt-5 pb-2 text-sm text-charcoal dark:text-dark-text focus:outline-none focus:border-terracotta transition-colors duration-300"
       />
       <label
         htmlFor={id}
@@ -42,7 +42,7 @@ export function FloatingInput({
         className={`absolute left-0 transition-all duration-300 pointer-events-none ${
           isActive
             ? 'top-0 text-xs text-terracotta'
-            : 'top-5 text-sm text-warm-gray'
+            : 'top-5 text-sm text-warm-gray dark:text-dark-text-muted'
         }`}
       >
         {label}
@@ -89,7 +89,7 @@ export function FloatingTextarea({
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onChange={(e) => setHasValue(e.target.value.length > 0)}
-        className="peer w-full bg-transparent border-0 border-b-2 border-border px-0 pt-5 pb-2 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors duration-300 resize-y"
+        className="peer w-full bg-transparent border-0 border-b-2 border-border dark:border-dark-border px-0 pt-5 pb-2 text-sm text-charcoal dark:text-dark-text focus:outline-none focus:border-terracotta transition-colors duration-300 resize-y"
       />
       <label
         htmlFor={id}
@@ -97,7 +97,7 @@ export function FloatingTextarea({
         className={`absolute left-0 transition-all duration-300 pointer-events-none ${
           isActive
             ? 'top-0 text-xs text-terracotta'
-            : 'top-5 text-sm text-warm-gray'
+            : 'top-5 text-sm text-warm-gray dark:text-dark-text-muted'
         }`}
       >
         {label}
@@ -141,7 +141,7 @@ export function FloatingSelect({
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onChange={(e) => setHasValue(e.target.value.length > 0)}
-        className="peer w-full bg-transparent border-0 border-b-2 border-border px-0 pt-5 pb-2 text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors duration-300 appearance-none"
+        className="peer w-full bg-transparent border-0 border-b-2 border-border dark:border-dark-border px-0 pt-5 pb-2 text-sm text-charcoal dark:text-dark-text focus:outline-none focus:border-terracotta transition-colors duration-300 appearance-none"
       >
         <option value="" disabled />
         {options.map((opt) => (
@@ -155,7 +155,7 @@ export function FloatingSelect({
         className={`absolute left-0 transition-all duration-300 pointer-events-none ${
           isActive
             ? 'top-0 text-xs text-terracotta'
-            : 'top-5 text-sm text-warm-gray'
+            : 'top-5 text-sm text-warm-gray dark:text-dark-text-muted'
         }`}
       >
         {label}

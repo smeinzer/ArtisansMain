@@ -146,7 +146,7 @@ export default function RootLayout({
             </a>
             <ScrollProgress />
             {/* Main content wrapper sits above the fixed footer */}
-            <div className="relative z-10 bg-cream flex flex-col min-h-screen shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]">
+            <div className="relative z-10 bg-cream dark:bg-dark-bg flex flex-col min-h-screen shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] transition-colors duration-400">
               <Header />
               <main id="main-content" className="flex-1">
                 <PageTransition>{children}</PageTransition>

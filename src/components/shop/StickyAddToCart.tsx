@@ -54,12 +54,12 @@ export default function StickyAddToCart({ product }: StickyAddToCartProps) {
           visible ? 'translate-y-0' : 'translate-y-full'
         }`}
       >
-        <div className="bg-cream/95 backdrop-blur-md border-t border-border px-4 py-3 flex items-center justify-between gap-4 safe-bottom">
+        <div className="bg-cream/95 dark:bg-dark-bg/95 backdrop-blur-md border-t border-border dark:border-dark-border px-4 py-3 flex items-center justify-between gap-4 safe-bottom">
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-charcoal truncate">
+            <p className="text-sm font-medium text-charcoal dark:text-dark-text truncate">
               {product.title}
             </p>
-            <p className="text-sm text-charcoal-light">
+            <p className="text-sm text-charcoal-light dark:text-dark-text-muted">
               ${product.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>

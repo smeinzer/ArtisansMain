@@ -88,7 +88,7 @@ export default function ImpactStats() {
                 transition: `opacity 0.6s ease-out ${i * 150}ms, transform 0.6s ease-out ${i * 150}ms`,
               }}
             >
-              <p className="font-serif text-5xl sm:text-6xl md:text-7xl font-medium text-charcoal tracking-tight leading-none">
+              <p className="font-serif text-5xl sm:text-6xl md:text-7xl font-medium text-charcoal dark:text-dark-text tracking-tight leading-none">
                 <AnimatedNumber
                   value={stat.value}
                   suffix={stat.suffix}

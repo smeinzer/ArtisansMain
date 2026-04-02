@@ -10,7 +10,7 @@ interface ArtistCardProps {
 export default function ArtistCard({ artist }: ArtistCardProps) {
   return (
     <Link href={`/artists/${artist.slug}`} className="group block">
-      <ImageReveal direction="up" className="relative aspect-[3/4] bg-cream-dark overflow-hidden">
+      <ImageReveal direction="up" className="relative aspect-[3/4] bg-cream-dark dark:bg-dark-surface overflow-hidden">
         <Image
           src={artist.headshot}
           alt={`Portrait of ${artist.name}`}
@@ -26,7 +26,7 @@ export default function ArtistCard({ artist }: ArtistCardProps) {
         </div>
       </ImageReveal>
       <div className="mt-4">
-        <h3 className="font-serif text-xl font-medium text-charcoal group-hover:text-terracotta transition-colors duration-200">
+        <h3 className="font-serif text-xl font-medium text-charcoal dark:text-dark-text group-hover:text-terracotta transition-colors duration-200">
           {artist.name}
         </h3>
         <p className="mt-1.5 text-sm text-warm-gray line-clamp-2 leading-relaxed">

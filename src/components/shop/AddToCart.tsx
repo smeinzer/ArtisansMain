@@ -31,7 +31,7 @@ export default function AddToCart({ product }: AddToCartProps) {
     return (
       <button
         disabled
-        className="w-full bg-warm-gray-light text-warm-gray py-3 text-sm font-medium tracking-wide cursor-not-allowed"
+        className="w-full bg-warm-gray-light dark:bg-dark-surface text-warm-gray dark:text-dark-text-muted py-3 text-sm font-medium tracking-wide cursor-not-allowed"
       >
         Sold
       </button>

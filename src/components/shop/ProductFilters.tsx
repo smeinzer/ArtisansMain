@@ -46,7 +46,7 @@ function stringToPriceRange(str: string): [number, number] | null {
 }
 
 const selectClasses =
-  'w-full md:w-auto appearance-none border border-border bg-white px-3 py-2 text-sm text-charcoal focus:outline-none focus:ring-1 focus:ring-terracotta';
+  'w-full md:w-auto appearance-none border border-border dark:border-dark-border bg-white dark:bg-dark-surface px-3 py-2 text-sm text-charcoal dark:text-dark-text focus:outline-none focus:ring-1 focus:ring-terracotta transition-colors duration-300';
 
 export default function ProductFilters({
   categories,
@@ -145,7 +145,7 @@ export default function ProductFilters({
         {filterControls}
 
         {activeCount > 0 && (
-          <div className="flex items-center gap-2 ml-2 text-sm text-warm-gray">
+          <div className="flex items-center gap-2 ml-2 text-sm text-warm-gray dark:text-dark-text-muted">
             <span>
               {activeCount} filter{activeCount !== 1 ? 's' : ''} active
             </span>
@@ -163,7 +163,7 @@ export default function ProductFilters({
       <div className="md:hidden">
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex items-center gap-2 border border-border px-4 py-2 text-sm text-charcoal bg-white w-full justify-between"
+          className="flex items-center gap-2 border border-border dark:border-dark-border px-4 py-2 text-sm text-charcoal dark:text-dark-text bg-white dark:bg-dark-surface w-full justify-between transition-colors duration-300"
           aria-expanded={mobileOpen}
           aria-label="Filter and sort products"
         >
@@ -185,11 +185,11 @@ export default function ProductFilters({
         </button>
 
         {mobileOpen && (
-          <div className="border border-t-0 border-border bg-white p-4 space-y-3">
+          <div className="border border-t-0 border-border dark:border-dark-border bg-white dark:bg-dark-surface p-4 space-y-3 transition-colors duration-300">
             {filterControls}
 
             {activeCount > 0 && (
-              <div className="flex items-center gap-2 pt-2 text-sm text-warm-gray">
+              <div className="flex items-center gap-2 pt-2 text-sm text-warm-gray dark:text-dark-text-muted">
                 <span>
                   {activeCount} filter{activeCount !== 1 ? 's' : ''} active
                 </span>

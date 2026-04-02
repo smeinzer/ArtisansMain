@@ -20,7 +20,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-6 py-16 text-center">
-        <h1 className="font-serif text-3xl md:text-4xl font-medium text-charcoal mb-4">
+        <h1 className="font-serif text-3xl md:text-4xl font-medium text-charcoal dark:text-dark-text mb-4">
           Product not found
         </h1>
         <p className="text-warm-gray mb-8">
@@ -70,11 +70,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <span className="text-sm text-warm-gray">{product.artist}</span>
           )}
 
-          <h1 className="font-serif text-3xl md:text-4xl font-medium text-charcoal leading-tight">
+          <h1 className="font-serif text-3xl md:text-4xl font-medium text-charcoal dark:text-dark-text leading-tight">
             {product.title}
           </h1>
 
-          <p className="text-2xl text-charcoal">
+          <p className="text-2xl text-charcoal dark:text-dark-text">
             ${product.price.toLocaleString()}
           </p>
 
@@ -82,11 +82,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {product.description}
           </p>
 
-          <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 text-sm border-t border-border pt-6">
+          <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 text-sm border-t border-border dark:border-dark-border pt-6">
             <dt className="text-warm-gray">Medium</dt>
-            <dd className="text-charcoal">{product.medium}</dd>
-            <dt className="text-warm-gray">Dimensions</dt>
-            <dd className="text-charcoal">{product.dimensions}</dd>
+            <dd className="text-charcoal dark:text-dark-text">{product.medium}</dd>
+            <dt className="text-warm-gray dark:text-dark-text-muted">Dimensions</dt>
+            <dd className="text-charcoal dark:text-dark-text">{product.dimensions}</dd>
           </dl>
 
           <StickyAddToCart product={product} />

@@ -22,7 +22,7 @@ export default function Preloader() {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-cream"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-cream dark:bg-dark-bg"
       style={{
         opacity: phase === 'reveal' ? 0 : 1,
         pointerEvents: phase === 'reveal' ? 'none' : 'auto',
@@ -40,7 +40,7 @@ export default function Preloader() {
         }}
       >
         <h1
-          className="font-serif text-3xl sm:text-4xl md:text-5xl text-charcoal tracking-tight"
+          className="font-serif text-3xl sm:text-4xl md:text-5xl text-charcoal dark:text-dark-text tracking-tight"
           style={{
             animation: 'preloader-text-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both',
           }}
