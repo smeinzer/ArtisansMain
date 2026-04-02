@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useCallback, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 interface KineticTextProps {
   text: string;
@@ -14,7 +14,7 @@ interface KineticTextProps {
   radius?: number;
   /** Also animate letter-spacing on hover */
   trackingShift?: boolean;
-  /** CSS transition duration per character */
+  /** CSS transition duration in ms */
   duration?: number;
 }
 
@@ -22,8 +22,8 @@ interface KineticTextProps {
  * Variable-font kinetic typography.
  *
  * Splits text into individual characters. On hover, characters near the
- * cursor smoothly shift font-weight and optionally letter-spacing,
- * creating a liquid ripple effect that follows the pointer.
+ * cursor smoothly shift font-weight via direct DOM manipulation (no React
+ * re-renders), creating a liquid ripple that follows the pointer at 60fps.
  *
  * Requires variable fonts with a `wght` axis (Cormorant Garamond 300-700,
  * DM Sans 100-1000).
@@ -39,114 +39,124 @@ export default function KineticText({
   duration = 300,
 }: KineticTextProps) {
   const containerRef = useRef<HTMLElement>(null);
-  const charRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const [weights, setWeights] = useState<number[]>([]);
-  const [isHovering, setIsHovering] = useState(false);
-  const [hasHoverCapability, setHasHoverCapability] = useState(false);
   const rafId = useRef(0);
+  const isHovering = useRef(false);
 
   const chars = text.split('');
 
-  // Initialize weights array
   useEffect(() => {
-    setWeights(new Array(chars.length).fill(weightFrom));
-    setHasHoverCapability(
-      typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches
-    );
-  }, [chars.length, weightFrom]);
+    const container = containerRef.current;
+    if (!container) return;
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent) => {
-      if (!hasHoverCapability) return;
+    // Only enable on hover-capable devices
+    const hoverQuery = window.matchMedia('(hover: hover)');
+    if (!hoverQuery.matches) return;
 
+    const charEls = container.querySelectorAll<HTMLSpanElement>('[data-kinetic-char]');
+    if (charEls.length === 0) return;
+
+    // Set initial transition on all chars
+    charEls.forEach((el) => {
+      el.style.transition = `font-weight ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+      el.style.fontWeight = String(weightFrom);
+      el.style.display = 'inline-block';
+    });
+
+    function applyWeights(mouseX: number) {
+      charEls.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const charCenterX = rect.left + rect.width / 2;
+        const distance = Math.abs(mouseX - charCenterX);
+        const charWidth = rect.width || 10;
+        const normalizedDistance = distance / charWidth;
+
+        if (normalizedDistance > radius) {
+          el.style.fontWeight = String(weightFrom);
+          return;
+        }
+
+        // Cosine falloff for organic feel
+        const t = 1 - normalizedDistance / radius;
+        const easedT = (Math.cos(Math.PI * (1 - t)) + 1) / 2;
+        const weight = Math.round(weightFrom + (weightTo - weightFrom) * easedT);
+        el.style.fontWeight = String(weight);
+      });
+    }
+
+    function resetWeights() {
+      charEls.forEach((el) => {
+        el.style.fontWeight = String(weightFrom);
+      });
+    }
+
+    function handleMouseMove(e: MouseEvent) {
+      // Extract clientX synchronously before RAF
+      const mouseX = e.clientX;
       cancelAnimationFrame(rafId.current);
       rafId.current = requestAnimationFrame(() => {
-        const mouseX = e.clientX;
-
-        const newWeights = chars.map((_, i) => {
-          const el = charRefs.current[i];
-          if (!el) return weightFrom;
-
-          const rect = el.getBoundingClientRect();
-          const charCenterX = rect.left + rect.width / 2;
-          const distance = Math.abs(mouseX - charCenterX);
-          // Average character width for normalizing distance
-          const charWidth = rect.width || 10;
-          const normalizedDistance = distance / charWidth;
-
-          if (normalizedDistance > radius) return weightFrom;
-
-          // Smooth falloff — cosine curve for organic feel
-          const t = 1 - normalizedDistance / radius;
-          const easedT = (Math.cos(Math.PI * (1 - t)) + 1) / 2;
-          return Math.round(weightFrom + (weightTo - weightFrom) * easedT);
-        });
-
-        setWeights(newWeights);
+        applyWeights(mouseX);
       });
-    },
-    [chars, weightFrom, weightTo, radius, hasHoverCapability]
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    cancelAnimationFrame(rafId.current);
-    setIsHovering(false);
-    setWeights(new Array(chars.length).fill(weightFrom));
-  }, [chars.length, weightFrom]);
-
-  const handleMouseEnter = useCallback(() => {
-    if (hasHoverCapability) {
-      setIsHovering(true);
     }
-  }, [hasHoverCapability]);
 
-  // Cleanup RAF on unmount
-  useEffect(() => {
-    return () => cancelAnimationFrame(rafId.current);
-  }, []);
+    function handleMouseEnter() {
+      isHovering.current = true;
+      if (trackingShift && container) {
+        container.style.letterSpacing = '0.02em';
+      }
+    }
 
-  // SSR/touch fallback — just render plain text
-  if (!hasHoverCapability) {
-    return (
-      <Tag className={className} style={{ fontWeight: weightFrom }}>
-        {text}
-      </Tag>
-    );
-  }
+    function handleMouseLeave() {
+      isHovering.current = false;
+      cancelAnimationFrame(rafId.current);
+      resetWeights();
+      if (trackingShift && container) {
+        container.style.letterSpacing = '';
+      }
+    }
+
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseenter', handleMouseEnter);
+    container.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mouseenter', handleMouseEnter);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(rafId.current);
+    };
+  }, [text, weightFrom, weightTo, radius, trackingShift, duration]);
 
   return (
     <Tag
       ref={containerRef as React.Ref<never>}
-      className={`kinetic-text ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className={className}
       aria-label={text}
       style={{
-        letterSpacing:
-          trackingShift && isHovering ? '0.02em' : undefined,
+        fontWeight: weightFrom,
         transition: trackingShift
           ? `letter-spacing ${duration * 2}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
           : undefined,
       }}
     >
-      {chars.map((char, i) => (
-        <span
-          key={i}
-          ref={(el) => { charRefs.current[i] = el; }}
-          aria-hidden="true"
-          style={{
-            display: 'inline-block',
-            fontWeight: weights[i] ?? weightFrom,
-            transition: `font-weight ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
-            willChange: isHovering ? 'font-weight' : 'auto',
-            // Preserve whitespace
-            ...(char === ' ' ? { width: '0.25em' } : {}),
-          }}
-        >
-          {char === ' ' ? '\u00A0' : char}
-        </span>
-      ))}
+      {chars.map((char, i) =>
+        char === ' ' ? (
+          <span
+            key={i}
+            aria-hidden="true"
+            style={{ display: 'inline-block', width: '0.25em' }}
+          >
+            {'\u00A0'}
+          </span>
+        ) : (
+          <span
+            key={i}
+            data-kinetic-char=""
+            aria-hidden="true"
+          >
+            {char}
+          </span>
+        )
+      )}
     </Tag>
   );
 }
